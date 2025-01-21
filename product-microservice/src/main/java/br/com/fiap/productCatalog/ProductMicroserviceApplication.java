@@ -1,4 +1,4 @@
-package br.com.fiap.product;
+package br.com.fiap.productCatalog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

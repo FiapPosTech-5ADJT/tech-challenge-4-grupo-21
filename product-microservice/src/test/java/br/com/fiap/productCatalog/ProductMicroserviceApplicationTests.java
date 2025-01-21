@@ -1,4 +1,4 @@
-package br.com.fiap.product;
+package br.com.fiap.productCatalog;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
