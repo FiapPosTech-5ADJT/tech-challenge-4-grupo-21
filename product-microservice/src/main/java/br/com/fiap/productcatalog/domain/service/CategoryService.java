@@ -1,9 +1,8 @@
-package br.com.fiap.productCatalog.domain.service;
+package br.com.fiap.productcatalog.domain.service;
 
-import br.com.fiap.productCatalog.domain.entity.Category;
-import br.com.fiap.productCatalog.domain.entity.Product;
-import br.com.fiap.productCatalog.domain.gateway.CategoryGateway;
-import br.com.fiap.productCatalog.domain.gateway.ProductGateway;
+import br.com.fiap.productcatalog.domain.entity.Category;
+import br.com.fiap.productcatalog.domain.entity.Product;
+import br.com.fiap.productcatalog.domain.gateway.CategoryGateway;
 
 import java.util.List;
 import java.util.Optional;
@@ -39,7 +38,10 @@ public class CategoryService {
     public void addProductToCategory(Long categoryId, Product product) {
         Category category = categoryGateway.findById(categoryId)
                 .orElseThrow(() -> new IllegalArgumentException("Category not found"));
-        categoryGateway.addProductToCategory(categoryId, product);
+        categoryGateway.addProductToCategory(category.getId(), product);
     }
 
+    public List<Category> getCategories() {
+        return categoryGateway.findAll();
+    }
 }

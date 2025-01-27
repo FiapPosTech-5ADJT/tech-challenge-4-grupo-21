@@ -1,4 +1,4 @@
-package br.com.fiap.productCatalog.domain.entity;
+package br.com.fiap.productcatalog.domain.entity;
 
 import java.math.BigDecimal;
 

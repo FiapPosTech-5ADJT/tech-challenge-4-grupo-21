@@ -1,10 +1,11 @@
-package br.com.fiap.productCatalog.domain.service;
+package br.com.fiap.productcatalog.domain.service;
 
-import br.com.fiap.productCatalog.domain.entity.Product;
-import br.com.fiap.productCatalog.domain.gateway.ProductGateway;
-import br.com.fiap.productCatalog.domain.gateway.CategoryGateway;
+import br.com.fiap.productcatalog.domain.entity.Product;
+import br.com.fiap.productcatalog.domain.gateway.ProductGateway;
+import br.com.fiap.productcatalog.domain.gateway.CategoryGateway;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 public class ProductService {
 
@@ -47,6 +48,10 @@ public class ProductService {
 
     public BigDecimal getProductStock(Long id) {
         return productGateway.getProductStock(id);
+    }
+
+    public List<Product> getProducts() {
+        return productGateway.findAll();
     }
 
     private void validateProduct(Product product) {
