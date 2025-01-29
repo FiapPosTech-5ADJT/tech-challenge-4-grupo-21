@@ -134,4 +134,5 @@ public class Product {
         }
         this.stock = this.stock.subtract(quantity);
     }
+
 }

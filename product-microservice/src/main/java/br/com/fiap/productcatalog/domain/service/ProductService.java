@@ -17,33 +17,20 @@ public class ProductService {
         this.categoryGateway = categoryGateway;
     }
 
-    public Product createProduct(Product product) {
-        validateProduct(product);
-        return productGateway.save(product);
-    }
-
     public void addStock(Long productId, BigDecimal quantity) {
         Product product = getProductById(productId);
         product.addStock(quantity);
-        productGateway.save(product);
+        productGateway.addStock(product);
     }
 
     public void removeStock(Long productId, BigDecimal quantity) {
         Product product = getProductById(productId);
         product.removeStock(quantity);
-        productGateway.save(product);
+        productGateway.removeStock(product);
     }
 
     public Product getProductById(Long id) {
-        return productGateway.findById(id).orElseThrow(() -> new IllegalArgumentException("Product not found"));
-    }
-
-    public Product findProductByName(String name) {
-        return productGateway.findByName(name).orElseThrow(() -> new IllegalArgumentException("Product not found"));
-    }
-
-    public void deleteProduct(Long id) {
-        productGateway.deleteById(id);
+        return productGateway.findById(id);
     }
 
     public BigDecimal getProductStock(Long id) {

@@ -1,0 +1,31 @@
+### Add product stock
+POST http://localhost:8080/product/addStock
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 10
+}
+
+###
+
+### Remove product stock
+POST http://localhost:8080/product/removeStock
+Content-Type: application/json
+
+{
+  "productId": 1,
+  "quantity": 5
+}
+
+###
+
+### Get product stock
+GET http://localhost:8080/product/1/stock
+Accept: application/json
+
+###
+
+### Get all products
+GET http://localhost:8080/product
+Accept: application/json

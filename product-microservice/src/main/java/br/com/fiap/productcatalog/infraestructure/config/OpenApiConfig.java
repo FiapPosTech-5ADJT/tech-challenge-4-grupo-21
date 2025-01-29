@@ -13,10 +13,10 @@ public class OpenApiConfig {
     public OpenAPI customOpenApi() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("Restaurant API")
+                        .title("Product microservice")
                         .version("v1")
-                        .description("Api para gerenciamento de restaurantes")
-                        .termsOfService("dont no")
+                        .description("Api for product/category microservice")
+                        .termsOfService("n/a")
                         .license(new License().name("apache 2.0")
                                 .url("")));
     }
