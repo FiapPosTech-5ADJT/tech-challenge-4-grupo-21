@@ -1,9 +1,10 @@
 package br.com.fiap.productcatalog.infraestructure.persistence.converter.api;
 
-public interface DtoConverter<REQUEST, DOMAIN, RESPONSE> {
-    public RESPONSE toResponse(DOMAIN domainObj);
+@SuppressWarnings("squid:S119")
+public interface DtoConverter<Req, Domain, Res> {
+    public Res toResponse(Domain domainObj);
 
-    public DOMAIN toDomain(REQUEST request);
+    public Domain toDomain(Req request);
 
-    public void updateDomainFromDto(DOMAIN domainObj, REQUEST request);
+    public void updateDomainFromDto(Domain domainObj, Req request);
 }

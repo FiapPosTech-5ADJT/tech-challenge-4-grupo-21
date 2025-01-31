@@ -10,4 +10,8 @@ public interface CategoryGateway {
     List<Category> findAll();
 
     Optional<Category> findById(Long id);
+
+    Category save(Category category);
+
+    Optional<Category> findByName(String name);
 }

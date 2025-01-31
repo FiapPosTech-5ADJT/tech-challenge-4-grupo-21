@@ -4,7 +4,6 @@ import br.com.fiap.productcatalog.application.usecases.AddProductStockUseCase;
 import br.com.fiap.productcatalog.application.usecases.GetProductStockUseCase;
 import br.com.fiap.productcatalog.application.usecases.GetProductsUseCase;
 import br.com.fiap.productcatalog.application.usecases.RemoveProductStockUseCase;
-import br.com.fiap.productcatalog.domain.gateway.CategoryGateway;
 import br.com.fiap.productcatalog.domain.gateway.ProductGateway;
 import br.com.fiap.productcatalog.domain.service.ProductService;
 import br.com.fiap.productcatalog.infraestructure.gateway.ProductGatewayImpl;
@@ -28,8 +27,8 @@ public class ProductConfiguration {
     }
 
     @Bean
-    ProductService productService(ProductGateway productGateway, CategoryGateway categoryGateway) {
-        return new ProductService(productGateway, categoryGateway);
+    ProductService productService(ProductGateway productGateway) {
+        return new ProductService(productGateway);
     }
 
     @Bean

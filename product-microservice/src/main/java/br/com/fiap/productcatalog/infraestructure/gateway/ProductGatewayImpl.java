@@ -34,12 +34,15 @@ public class ProductGatewayImpl implements ProductGateway {
 
     @Override
     public void addStock(Product product) {
-        Product productToUpdate = findById(product.getId());
-        productRepository.save(productEntityConverter.toEntity(productToUpdate));
+        this.updateProduct(product);
     }
 
     @Override
     public void removeStock(Product product) {
+        this.updateProduct(product);
+    }
+
+    private void updateProduct(Product product){
         Product productToUpdate = findById(product.getId());
         productRepository.save(productEntityConverter.toEntity(productToUpdate));
     }

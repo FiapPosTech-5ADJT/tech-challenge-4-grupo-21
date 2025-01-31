@@ -24,4 +24,14 @@ public class CategoryGatewayImpl implements CategoryGateway {
     public Optional<Category> findById(Long id) {
         return categoryRepository.findById(id).map(categoryEntityConverter::toDomainObj);
     }
+
+    @Override
+    public Category save(Category category) {
+        return categoryEntityConverter.toDomainObj(categoryRepository.save(categoryEntityConverter.toEntity(category)));
+    }
+
+    @Override
+    public Optional<Category> findByName(String name) {
+        return categoryRepository.findByName(name).map(categoryEntityConverter::toDomainObj);
+    }
 }
