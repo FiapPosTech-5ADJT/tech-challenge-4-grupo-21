@@ -43,7 +43,6 @@ public class ProductGatewayImpl implements ProductGateway {
     }
 
     private void updateProduct(Product product){
-        Product productToUpdate = findById(product.getId());
-        productRepository.save(productEntityConverter.toEntity(productToUpdate));
+        productRepository.save(productEntityConverter.toEntity(product));
     }
 }
