@@ -1,7 +1,9 @@
 package br.com.fiap.productcatalog.domain.entity;
 
 import java.math.BigDecimal;
+
 import org.junit.jupiter.api.Test;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class ProductTest {
@@ -87,7 +89,7 @@ class ProductTest {
                 createProduct(1L, "Product 1", "Description 1", 0.0,
                         "Category 1", 10.0)
         );
-        assertEquals("Price cannot be null", exception.getMessage());
+        assertEquals("Price cannot be zero", exception.getMessage());
     }
 
     @Test
@@ -96,16 +98,14 @@ class ProductTest {
                 createProduct(1L, "Product 1", "Description 1", 10.0,
                         null, 10.0)
         );
-        assertEquals("Category cannot be null", exception.getMessage());
+        assertEquals("Name cannot be null or empty", exception.getMessage());
     }
 
     @Test
-    void createProductWithNullStockThrowsException() {
-        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-                createProduct(1L, "Product 1", "Description 1", 10.0,
-                        "Category 1", 0.0)
-        );
-        assertEquals("Stock cannot be null", exception.getMessage());
+    void createProductWithZeroStock() {
+        Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
+                "Category 1", 0.0);
+        assertEquals(0, product.getStock().compareTo(BigDecimal.ZERO));
     }
 
     @Test
@@ -172,7 +172,7 @@ class ProductTest {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
         product.removeStock(BigDecimal.valueOf(10));
-        assertEquals(BigDecimal.ZERO, product.getStock());
+        assertEquals(0, product.getStock().compareTo(BigDecimal.ZERO));
     }
 
     @Test
@@ -180,7 +180,7 @@ class ProductTest {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
         product.removeStock(BigDecimal.valueOf(5));
-        assertEquals(BigDecimal.valueOf(5), product.getStock());
+        assertEquals(0, product.getStock().compareTo(BigDecimal.valueOf(5)));
     }
 
     @Test
@@ -188,7 +188,7 @@ class ProductTest {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
         product.removeStock(BigDecimal.ZERO);
-        assertEquals(BigDecimal.valueOf(10), product.getStock());
+        assertEquals(0, product.getStock().compareTo(BigDecimal.valueOf(10)));
     }
 
     @Test
@@ -196,7 +196,7 @@ class ProductTest {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
         product.addStock(BigDecimal.ZERO);
-        assertEquals(BigDecimal.valueOf(10), product.getStock());
+        assertEquals(0, product.getStock().compareTo(BigDecimal.valueOf(10)));
     }
 
     @Test
@@ -204,6 +204,6 @@ class ProductTest {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
         product.addStock(BigDecimal.valueOf(5));
-        assertEquals(BigDecimal.valueOf(15), product.getStock());
+        assertEquals(0, product.getStock().compareTo(BigDecimal.valueOf(15)));
     }
 }

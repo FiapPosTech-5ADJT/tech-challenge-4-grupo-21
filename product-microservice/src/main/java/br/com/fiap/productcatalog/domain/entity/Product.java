@@ -80,6 +80,10 @@ public class Product {
         if (price.compareTo(BigDecimal.ZERO) < 0) {
             throw new IllegalArgumentException("Price cannot be negative");
         }
+
+        if (price.compareTo(BigDecimal.ZERO) == 0) {
+            throw new IllegalArgumentException("Price cannot be zero");
+        }
         this.price = price;
     }
 
