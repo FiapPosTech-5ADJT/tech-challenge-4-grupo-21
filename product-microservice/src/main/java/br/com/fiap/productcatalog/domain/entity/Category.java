@@ -1,18 +1,13 @@
 package br.com.fiap.productcatalog.domain.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Category {
 
     private Long id;
     private String name;
-    private List<Product> products = new ArrayList<>();
 
-    public Category(Long id, String name, List<Product> products) {
+    public Category(Long id, String name) {
         setId(id);
         setName(name);
-        setProducts(products);
     }
 
     public Category(String name) {
@@ -42,23 +37,5 @@ public class Category {
             throw new IllegalArgumentException("Name cannot be null or empty");
         }
         this.name = name;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        if (products == null || products.isEmpty()) {
-            throw new IllegalArgumentException("Products cannot be null or empty");
-        }
-        this.products = products;
-    }
-
-    public void addProduct(Product product) {
-        if (product == null) {
-            throw new IllegalArgumentException("Product cannot be null");
-        }
-        this.products.add(product);
     }
 }
