@@ -1,7 +1,7 @@
 package com.fiap.order.management.gateway.api;
 
 import com.fiap.order.management.gateway.OrderGateway;
-import com.fiap.order.management.model.Order;
+import com.fiap.order.management.entity.Order;
 import com.fiap.order.management.repository.OrderRepository;
 
 import java.util.Optional;

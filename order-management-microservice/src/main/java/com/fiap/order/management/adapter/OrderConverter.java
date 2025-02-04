@@ -23,7 +23,7 @@ package com.fiap.order.management.adapter;
                             .map(OrderConverter::toDTO)
                             .collect(Collectors.toList());
 
-                    return new OrderDTO(orderDomain.getCustomerId(), itemDTOs, orderDomain.getStatus());
+                    return new OrderDTO(orderDomain.getCustomerId(), itemDTOs);
                 }
 
                 private static ItemDomain toDomain(ItemDTO itemDTO) {

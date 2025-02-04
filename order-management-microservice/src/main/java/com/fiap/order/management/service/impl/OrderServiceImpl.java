@@ -9,7 +9,7 @@ import com.fiap.order.management.domain.ItemDomain;
 import com.fiap.order.management.domain.OrderDomain;
 import com.fiap.order.management.dto.*;
 import com.fiap.order.management.gateway.*;
-import com.fiap.order.management.model.Order;
+import com.fiap.order.management.entity.Order;
 import com.fiap.order.management.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

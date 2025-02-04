@@ -1,4 +1,4 @@
-package com.fiap.order.management.model;
+package com.fiap.order.management.entity;
 
     import com.fiap.order.management.domain.StatusOrder;
     import jakarta.persistence.*;

@@ -1,7 +1,7 @@
 package com.fiap.order.management.controller;
 
 import com.fiap.order.management.dto.OrderDTO;
-import com.fiap.order.management.model.Order;
+import com.fiap.order.management.entity.Order;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
