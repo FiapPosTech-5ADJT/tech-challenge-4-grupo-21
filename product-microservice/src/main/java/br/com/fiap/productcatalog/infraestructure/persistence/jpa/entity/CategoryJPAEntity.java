@@ -12,7 +12,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "category")
 public class CategoryJPAEntity {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_seq")
+    @SequenceGenerator(name = "category_seq", sequenceName = "category_sequence", allocationSize = 1)
     private Long id;
     @Column(nullable = false)
     private String name;

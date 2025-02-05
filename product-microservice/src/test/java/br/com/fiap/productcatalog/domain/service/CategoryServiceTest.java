@@ -33,14 +33,11 @@ public class CategoryServiceTest {
 
     @Test
     void getCategories_ShouldReturnListOfCategories() {
-        // Arrange
         List<Category> mockCategories = TestDataFactory.createCategoryList();
         when(categoryGateway.findAll()).thenReturn(mockCategories);
 
-        // Act
         List<Category> result = categoryService.getCategories();
 
-        // Assert
         assertEquals(2, result.size());
         assertEquals("Category 1", result.get(0).getName());
         verify(categoryGateway, times(1)).findAll();
@@ -48,13 +45,10 @@ public class CategoryServiceTest {
 
     @Test
     void save_ShouldReturnSavedCategory() {
-        // Arrange
         when(categoryGateway.save(category)).thenReturn(category);
 
-        // Act
         Category result = categoryService.save(category);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Eletrônicos", result.getName());
         verify(categoryGateway, times(1)).save(category);
@@ -62,13 +56,10 @@ public class CategoryServiceTest {
 
     @Test
     void findByName_ShouldReturnCategory_WhenExists() {
-        // Arrange
         when(categoryGateway.findByName("Eletrônicos")).thenReturn(Optional.of(category));
 
-        // Act
         Optional<Category> result = categoryService.findByName("Eletrônicos");
 
-        // Assert
         assertTrue(result.isPresent());
         assertEquals("Eletrônicos", result.get().getName());
         verify(categoryGateway, times(1)).findByName("Eletrônicos");
@@ -76,13 +67,10 @@ public class CategoryServiceTest {
 
     @Test
     void findByName_ShouldReturnEmpty_WhenNotExists() {
-        // Arrange
         when(categoryGateway.findByName("Móveis")).thenReturn(Optional.empty());
 
-        // Act
         Optional<Category> result = categoryService.findByName("Móveis");
 
-        // Assert
         assertFalse(result.isPresent());
         verify(categoryGateway, times(1)).findByName("Móveis");
     }
