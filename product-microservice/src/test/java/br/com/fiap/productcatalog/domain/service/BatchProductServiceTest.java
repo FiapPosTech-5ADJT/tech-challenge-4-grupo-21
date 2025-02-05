@@ -29,10 +29,7 @@ class BatchProductServiceTest {
 
     @Test
     void execute_ShouldCallBatchProductGateway() {
-        // Act
         batchProductService.execute(batchProductRequest);
-
-        // Assert
-        verify(batchProductGateway, times(1)).execute(batchProductRequest); // Verifica se o método foi chamado uma vez
+        verify(batchProductGateway, times(1)).execute(batchProductRequest);
     }
 }

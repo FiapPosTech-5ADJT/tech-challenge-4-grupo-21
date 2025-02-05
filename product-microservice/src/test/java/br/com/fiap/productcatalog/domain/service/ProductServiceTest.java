@@ -33,14 +33,11 @@ class ProductServiceTest {
 
     @Test
     void getProducts_ShouldReturnListOfProducts() {
-        // Arrange
         List<Product> mockProducts = TestDataFactory.createProductList();
         when(productGateway.findAll()).thenReturn(mockProducts);
 
-        // Act
         List<Product> result = productService.getProducts();
 
-        // Assert
         assertEquals(2, result.size());
         assertEquals("Product 1", result.get(0).getName());
         verify(productGateway, times(1)).findAll();
@@ -48,13 +45,10 @@ class ProductServiceTest {
 
     @Test
     void getProductById_ShouldReturnProduct() {
-        // Arrange
         when(productGateway.findById(1L)).thenReturn(product);
 
-        // Act
         Product result = productService.getProductById(1L);
 
-        // Assert
         assertNotNull(result);
         assertEquals("Product 1", result.getName());
         verify(productGateway, times(1)).findById(1L);
@@ -62,52 +56,41 @@ class ProductServiceTest {
 
     @Test
     void addStock_ShouldIncreaseStock() {
-        // Arrange
         when(productGateway.findById(1L)).thenReturn(product);
         BigDecimal quantityToAdd = BigDecimal.valueOf(3);
 
-        // Act
         productService.addStock(1L, quantityToAdd);
 
-        // Assert
         assertEquals(0, product.getStock().compareTo(BigDecimal.valueOf(8)));
         verify(productGateway, times(1)).addStock(product);
     }
 
     @Test
     void removeStock_ShouldDecreaseStock() {
-        // Arrange
         when(productGateway.findById(1L)).thenReturn(product);
         BigDecimal quantityToRemove = BigDecimal.valueOf(3);
 
-        // Act
         productService.removeStock(1L, quantityToRemove);
 
-        // Assert
         assertEquals(0, BigDecimal.valueOf(2).compareTo(product.getStock()));
         verify(productGateway, times(1)).removeStock(product);
     }
 
     @Test
     void removeStock_ShouldThrowException_WhenStockIsNotEnough() {
-        // Arrange
         when(productGateway.findById(1L)).thenReturn(product);
         BigDecimal quantityToRemove = BigDecimal.valueOf(10);
 
-        // Act & Assert
         assertThrows(IllegalArgumentException.class, () -> productService.removeStock(1L, quantityToRemove));
         verify(productGateway, never()).removeStock(product);
     }
 
     @Test
     void getProductStock_ShouldReturnStockValue() {
-        // Arrange
         when(productGateway.getProductStock(1L)).thenReturn(BigDecimal.valueOf(5));
 
-        // Act
         BigDecimal stock = productService.getProductStock(1L);
 
-        // Assert
         assertEquals(BigDecimal.valueOf(5), stock);
         verify(productGateway, times(1)).getProductStock(1L);
     }
