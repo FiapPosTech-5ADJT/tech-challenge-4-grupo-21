@@ -6,6 +6,7 @@ import br.com.fiap.productcatalog.domain.service.CategoryService;
 import br.com.fiap.productcatalog.infraestructure.gateway.CategoryGatewayImpl;
 import br.com.fiap.productcatalog.infraestructure.persistence.converter.db.CategoryEntityConverter;
 import br.com.fiap.productcatalog.infraestructure.persistence.jpa.repository.CategoryRepository;
+import jakarta.persistence.EntityManager;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -18,8 +19,10 @@ public class CategoryConfiguration {
     }
 
     @Bean
-    CategoryGateway categoryGateway(CategoryRepository categoryRepository, CategoryEntityConverter categoryEntityConverter) {
-        return new CategoryGatewayImpl(categoryRepository, categoryEntityConverter);
+    CategoryGateway categoryGateway(CategoryRepository categoryRepository,
+                                    CategoryEntityConverter categoryEntityConverter,
+                                    EntityManager entityManager) {
+        return new CategoryGatewayImpl(categoryRepository, categoryEntityConverter, entityManager);
     }
 
     @Bean
