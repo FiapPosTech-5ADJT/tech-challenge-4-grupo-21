@@ -16,19 +16,24 @@ public class ProductProcessor implements ItemProcessor<ProductCSVDTO, ProductJPA
     private CategoryEntityConverter categoryEntityConverter;
 
     @Override
-    public ProductJPAEntity process(ProductCSVDTO productCSVDTO) throws Exception {
-        CategoryJPAEntity categoryJPAEntity = categoryService.findByName(productCSVDTO.getCategoryName())
-                .map(categoryEntityConverter::toEntity)
-                .orElseGet(() -> {
-                    Category savedCategory = categoryService.save(new Category(productCSVDTO.getCategoryName()));
-                    return categoryEntityConverter.toEntity(savedCategory);
-                });
-        ProductJPAEntity productJPAEntity = new ProductJPAEntity();
-        productJPAEntity.setName(productCSVDTO.getName());
-        productJPAEntity.setDescription(productCSVDTO.getDescription());
-        productJPAEntity.setPrice(productCSVDTO.getPrice());
-        productJPAEntity.setCategory(categoryJPAEntity);
-        productJPAEntity.setStock(productCSVDTO.getQuantity());
-        return productJPAEntity;
+    public ProductJPAEntity process(ProductCSVDTO productCSVDTO) {
+        try{
+            CategoryJPAEntity categoryJPAEntity = categoryService.findByName(productCSVDTO.getCategoryName())
+                    .map(categoryEntityConverter::toEntity)
+                    .orElseGet(() -> {
+                        Category savedCategory = categoryService.save(new Category(productCSVDTO.getCategoryName()));
+                        return categoryEntityConverter.toEntity(savedCategory);
+                    });
+            ProductJPAEntity productJPAEntity = new ProductJPAEntity();
+            productJPAEntity.setName(productCSVDTO.getName());
+            productJPAEntity.setDescription(productCSVDTO.getDescription());
+            productJPAEntity.setPrice(productCSVDTO.getPrice());
+            productJPAEntity.setCategory(categoryJPAEntity);
+            productJPAEntity.setStock(productCSVDTO.getQuantity());
+            return productJPAEntity;
+        }catch (Exception e){
+            System.out.println("Erro ao processar o produto: " + productCSVDTO.getName()+ " - "+ e.getMessage());
+        }
+        return null;
     }
 }

@@ -3,7 +3,10 @@ package br.com.fiap.productcatalog.infraestructure.gateway;
 import br.com.fiap.productcatalog.domain.entity.Category;
 import br.com.fiap.productcatalog.domain.gateway.CategoryGateway;
 import br.com.fiap.productcatalog.infraestructure.persistence.converter.db.CategoryEntityConverter;
+import br.com.fiap.productcatalog.infraestructure.persistence.jpa.entity.CategoryJPAEntity;
 import br.com.fiap.productcatalog.infraestructure.persistence.jpa.repository.CategoryRepository;
+import jakarta.persistence.EntityManager;
+import jakarta.transaction.Transactional;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
@@ -14,6 +17,7 @@ public class CategoryGatewayImpl implements CategoryGateway {
 
     private final CategoryRepository categoryRepository;
     private final CategoryEntityConverter categoryEntityConverter;
+    private EntityManager entityManager;
 
     @Override
     public List<Category> findAll() {
@@ -32,6 +36,17 @@ public class CategoryGatewayImpl implements CategoryGateway {
 
     @Override
     public Optional<Category> findByName(String name) {
-        return categoryRepository.findByName(name).map(categoryEntityConverter::toDomainObj);
+        return Optional.empty();
+    }
+
+    @Transactional
+    protected CategoryJPAEntity findOrCreateByName(String categoryName) {
+        return categoryRepository.findByName(categoryName)
+                .orElseGet(() -> {
+                    Category newCategory = new Category(categoryName);
+                    Category savedCategory = categoryEntityConverter.toDomainObj(categoryRepository.save(categoryEntityConverter.toEntity(newCategory)));
+                    entityManager.flush(); // Garante persistência imediata
+                    return categoryEntityConverter.toEntity(savedCategory);
+                });
     }
 }

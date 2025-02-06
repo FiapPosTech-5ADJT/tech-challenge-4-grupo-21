@@ -1,22 +1,24 @@
 package br.com.fiap.productcatalog.infraestructure.controller;
 
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
+import org.awaitility.Awaitility;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.http.HttpStatus;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.io.File;
-import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.TimeUnit;
 
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.not;
+import static org.hamcrest.Matchers.*;
+import static org.hamcrest.Matchers.containsString;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@ActiveProfiles("import")
+@DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 class BatchProductControllerTest {
 
     @LocalServerPort
@@ -29,34 +31,65 @@ class BatchProductControllerTest {
     }
 
     @Test
-    void shouldReturn200andImportData() {
+    void shouldImportDataAndPersistInDatabaseSmallFile() {
         File file = new File("src/test/resources/testSmall.csv");
-        int milliseconds = 1000;
 
+        // Enviar requisição de importação
         RestAssured.given()
                 .multiPart("file", file)
-                .formParam("milliseconds", milliseconds)
+                .formParam("milliseconds", 0) // Processamento imediato
                 .when()
                 .post("/batch/import")
                 .then()
                 .statusCode(HttpStatus.OK.value());
 
-        CompletableFuture.runAsync(this::shouldReturn200AndImportedCategories,
-                        CompletableFuture.delayedExecutor(milliseconds, TimeUnit.MILLISECONDS))
-                .join();
-
+        // Aguardar a importação ser concluída e os dados aparecerem no banco
+        Awaitility.await()
+                .atMost(5, TimeUnit.SECONDS) // Espera até 5s (ajustável)
+                .pollInterval(500, TimeUnit.MILLISECONDS) // Verifica a cada 500ms
+                .untilAsserted(this::verifyCategoriesImported);
     }
 
-    void shouldReturn200AndImportedCategories() {
+    @Test
+    void shouldImportDataAndPersistInDatabaseLargeFile() {
+        File file = new File("src/test/resources/testLarge.csv");
+
+        // Enviar requisição de importação
+        RestAssured.given()
+                .multiPart("file", file)
+                .formParam("milliseconds", 0) // Processamento imediato
+                .when()
+                .post("/batch/import")
+                .then()
+                .statusCode(HttpStatus.OK.value());
+
+        // Aguardar a importação ser concluída e os dados aparecerem no banco
+        Awaitility.await()
+                .atMost(5, TimeUnit.SECONDS) // Espera até 5s (ajustável)
+                .pollInterval(500, TimeUnit.MILLISECONDS) // Verifica a cada 500ms
+                .untilAsserted(this::verifyProductsImported);
+    }
+
+    void verifyCategoriesImported() {
         RestAssured.given()
                 .contentType("application/json")
                 .when()
                 .get("/categories")
                 .then()
                 .statusCode(200)
-                .body("size()", not(0))
-                .body("[0].name", equalTo("Eletrodomésticos"))
-                .body("[1].name", equalTo("Redes"))
-                .body("[2].name", equalTo("Periféricos"));
+                .body("size()", equalTo(2))
+                .body(containsString("Eletrônicos"))
+                .body(containsString("Casa"));
+    }
+
+    void verifyProductsImported() {
+        RestAssured.given()
+                .contentType("application/json")
+                .when()
+                .get("/product")
+                .then()
+                .statusCode(200)
+                .body("size()", greaterThan(2500))
+                .body(containsString("Perfume 2087"));
     }
 }
