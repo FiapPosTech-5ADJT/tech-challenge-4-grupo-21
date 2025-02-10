@@ -1,8 +1,8 @@
-package br.com.fiap.logistic.service;
+package br.com.fiap.logistic.gateway;
 
 import br.com.fiap.logistic.domain.Tracking;
 
-public interface TrackingService {
+public interface TrackingGateway {
 
     Tracking createTracking(Tracking tracking);
 

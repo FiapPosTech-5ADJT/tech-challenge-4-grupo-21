@@ -10,13 +10,15 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime estimatedDelivery;
     private LocalDateTime deliveredAt;
+    private Long zipCode;
 
     public Order(Long id,
                  Long customerId,
                  LocalDateTime estimatedDelivery,
-                 LocalDateTime deliveredAt) {
+                 LocalDateTime deliveredAt, Long zipCode) {
         this.id = id;
         this.customerId = customerId;
+        this.zipCode = zipCode;
         this.status = OrderStatus.PENDING;
         this.createdAt = LocalDateTime.now();
         this.estimatedDelivery = estimatedDelivery;
@@ -24,11 +26,22 @@ public class Order {
     }
 
     public Order(Long customerId,
-                 LocalDateTime estimatedDelivery) {
+                 LocalDateTime estimatedDelivery, Long zipCode) {
         this.customerId = customerId;
+        this.zipCode = zipCode;
         this.status = OrderStatus.PENDING;
         this.estimatedDelivery = estimatedDelivery;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Order(Long id, Long customerId, OrderStatus status, LocalDateTime createdAt, LocalDateTime estimatedDelivery, LocalDateTime deliveredAt, Long zipCode) {
+        this.id = id;
+        this.customerId = customerId;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.estimatedDelivery = estimatedDelivery;
+        this.deliveredAt = deliveredAt;
+        this.zipCode = zipCode;
     }
 
     public void setStatus(OrderStatus status) {
@@ -89,5 +102,9 @@ public class Order {
 
     public LocalDateTime getDeliveredAt() {
         return deliveredAt;
+    }
+
+    public Long getZipCode() {
+        return zipCode;
     }
 }
