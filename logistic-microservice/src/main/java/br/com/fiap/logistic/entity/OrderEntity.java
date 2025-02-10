@@ -3,6 +3,8 @@ package br.com.fiap.logistic.entity;
 import br.com.fiap.logistic.domain.OrderStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
@@ -11,6 +13,8 @@ import java.time.LocalDateTime;
 @Table(name = "orders")
 @AllArgsConstructor
 @NoArgsConstructor
+@Data
+@Builder
 public class OrderEntity {
 
     @Id
@@ -31,4 +35,7 @@ public class OrderEntity {
     private LocalDateTime estimatedDelivery;
 
     private LocalDateTime deliveredAt;
+
+    @Column(nullable = false)
+    private Long zipCode;
 }
