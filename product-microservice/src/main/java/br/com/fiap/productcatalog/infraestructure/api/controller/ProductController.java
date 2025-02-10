@@ -9,11 +9,14 @@ import br.com.fiap.productcatalog.application.usecases.RemoveProductStockUseCase
 import br.com.fiap.productcatalog.domain.entity.Product;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.Message;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.function.Consumer;
 
 @RestController
 @RequestMapping("/product")
@@ -49,4 +52,14 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(getProductsUseCase.getProducts());
     }
+
+
+
+  @Bean
+  public Consumer<Message<RemoveProductStockRequest>> atualizarEstoque() {
+    return message -> {
+      RemoveProductStockRequest request = message.getPayload();
+      removeProductStockUseCase.removeProductStock(request.productId(), request.quantity());
+    };
+  }
 }

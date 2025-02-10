@@ -12,14 +12,14 @@ package com.fiap.order.management.config.queue;
 	@Configuration
 	public class RabbitConfiguration {
 
-	    @Value("${queue.atualizar-estoque.name}")
-	    private String atualizarEstoqueQueueName;
+      @Value("${queue.atualizar-estoque.name}")
+      private String atualizarEstoqueQueueName;
 
-	    @Value("${queue.atualizar-estoque.exchange.name}")
-	    private String atualizarEstoqueExchangeName;
+      @Value("${queue.atualizar-estoque.exchange.name}")
+      private String atualizarEstoqueExchangeName;
 
-	    @Value("${queue.atualizar-estoque-dlx.key}")
-	    private String atualizarEstoqueDlxKey;
+      @Value("${queue.atualizar-estoque-dlx.key}")
+      private String atualizarEstoqueDlxKey;
 
 	    @Value("${queue.logistica.name}")
 	    private String logisticaQueueName;
@@ -30,22 +30,22 @@ package com.fiap.order.management.config.queue;
 	    @Value("${queue.logistica-dlx.key}")
 	    private String logisticaDlxKey;
 
-	    @Bean("atualizarEstoqueQueue")
-	    Queue atualizarEstoqueQueue() {
-	        return new Queue(atualizarEstoqueQueueName, true);
-	    }
+      @Bean("atualizarEstoqueQueue")
+      Queue atualizarEstoqueQueue() {
+        return new Queue(atualizarEstoqueQueueName, true);
+      }
 
-	    @Bean("atualizarEstoqueDlx")
-	    TopicExchange atualizarEstoqueDlx() {
-	        return new TopicExchange(atualizarEstoqueExchangeName);
-	    }
+      @Bean("atualizarEstoqueDlx")
+      TopicExchange atualizarEstoqueDlx() {
+        return new TopicExchange(atualizarEstoqueExchangeName);
+      }
 
-	    @Bean
-	    Binding atualizarEstoqueBinding(
-	            @Qualifier("atualizarEstoqueQueue") Queue atualizarEstoqueQueue,
-	            @Qualifier("atualizarEstoqueDlx") TopicExchange atualizarEstoqueDlx) {
-	        return BindingBuilder.bind(atualizarEstoqueQueue).to(atualizarEstoqueDlx).with(atualizarEstoqueDlxKey);
-	    }
+      @Bean
+      Binding atualizarEstoqueBinding(
+        @Qualifier("atualizarEstoqueQueue") Queue atualizarEstoqueQueue,
+        @Qualifier("atualizarEstoqueDlx") TopicExchange atualizarEstoqueDlx) {
+        return BindingBuilder.bind(atualizarEstoqueQueue).to(atualizarEstoqueDlx).with(atualizarEstoqueDlxKey);
+      }
 
 	    @Bean("logisticaQueue")
 	    Queue logisticaQueue() {

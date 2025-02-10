@@ -1,10 +1,9 @@
 package com.fiap.order.management.dto;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public record StockProductUpdateRequestDTO(
-        String productId,
-        BigInteger quantity,
-        StockActionEnum action
+        Long productId,
+        BigDecimal quantity
 ) {
 }

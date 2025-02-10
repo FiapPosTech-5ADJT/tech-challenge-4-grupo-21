@@ -1,6 +1,6 @@
 package com.fiap.order.management.domain;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.List;
 
 public class OrderDomain {
@@ -49,6 +49,6 @@ public class OrderDomain {
 
     private boolean hasValidQuantities() {
         return this.items.stream()
-                .noneMatch(item -> item.getQuantity().compareTo(BigInteger.ZERO) <= 0);
+                .noneMatch(item -> item.getQuantity().compareTo(BigDecimal.ZERO) <= 0);
     }
 }

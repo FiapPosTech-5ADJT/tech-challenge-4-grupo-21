@@ -8,7 +8,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 @Entity(name = "items")
 @AllArgsConstructor
@@ -18,6 +18,6 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String productId;
-    private BigInteger quantity;
+    private Long productId;
+    private BigDecimal quantity;
 }
