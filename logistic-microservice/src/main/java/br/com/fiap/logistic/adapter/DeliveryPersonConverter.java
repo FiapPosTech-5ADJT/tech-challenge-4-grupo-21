@@ -2,20 +2,21 @@ package br.com.fiap.logistic.adapter;
 
 import br.com.fiap.logistic.domain.DeliveryPerson;
 import br.com.fiap.logistic.entity.DeliveryPersonEntity;
+import lombok.AllArgsConstructor;
 
 import java.util.stream.Collectors;
 
+@AllArgsConstructor
 public class DeliveryPersonConverter {
 
-    private DeliveryPersonConverter() {
-    }
+    final OrderConverter orderConverter;
 
     public DeliveryPersonEntity convertToEntity(DeliveryPerson deliveryPerson) {
         return DeliveryPersonEntity.builder()
                 .id(deliveryPerson.getId())
                 .name(deliveryPerson.getName())
                 .available(deliveryPerson.isAvailable())
-                .orders(deliveryPerson.getOrders().stream().map(OrderConverter::convertToEntity).collect(Collectors.toList()))
+                .orders(deliveryPerson.getOrders().stream().map(orderConverter::convertToEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -24,6 +25,6 @@ public class DeliveryPersonConverter {
                 deliveryPersonEntity.getName(),
                 deliveryPersonEntity.getVehiclePlate(),
                 deliveryPersonEntity.isAvailable(),
-                deliveryPersonEntity.getOrders().stream().map(OrderConverter::convertToDomain).collect(Collectors.toList()));
+                deliveryPersonEntity.getOrders().stream().map(orderConverter::convertToDomain).collect(Collectors.toList()));
     }
 }

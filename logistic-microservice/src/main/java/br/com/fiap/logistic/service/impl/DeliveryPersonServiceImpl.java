@@ -29,6 +29,10 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
 
         DeliveryPerson deliveryPerson = deliveryPersonConverter.convertToDomain(deliveryPersonEntity);
 
+        if(!deliveryPerson.isAvailable()){
+            throw new RuntimeException("Entregador não disponível");
+        }
+
         final Order order = orderService.getOrderById(orderId);
 
         deliveryPerson.assignOrder(order);

@@ -5,14 +5,11 @@ import br.com.fiap.logistic.entity.OrderEntity;
 
 public class OrderConverter {
 
-    private OrderConverter() {
-    }
-
-    public static Order convertToDomain(OrderEntity orderEntity) {
+    public Order convertToDomain(OrderEntity orderEntity) {
         return new Order(orderEntity.getId(),orderEntity.getCustomerId(),orderEntity.getStatus(),orderEntity.getCreatedAt(),orderEntity.getEstimatedDelivery(),orderEntity.getDeliveredAt(),orderEntity.getZipCode());
     }
 
-    public static OrderEntity convertToEntity(Order order) {
+    public OrderEntity convertToEntity(Order order) {
         return OrderEntity.builder()
                 .id(order.getId())
                 .customerId(order.getCustomerId())
