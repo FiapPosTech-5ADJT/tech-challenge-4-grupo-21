@@ -10,4 +10,6 @@ public interface DeliveryPersonGateway {
     DeliveryPersonEntity save(DeliveryPersonEntity deliveryPerson);
 
     Optional<DeliveryPersonEntity> findById(Long deliveryPersonId);
+
+    Optional<DeliveryPersonEntity> findByOrderId(Long orderId);
 }

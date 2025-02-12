@@ -5,11 +5,11 @@ import br.com.fiap.logistic.service.DeliveryPersonService;
 import lombok.AllArgsConstructor;
 
 @AllArgsConstructor
-public class AssignDeliveryPersonUseCase {
+public class CreateDeliveryPersonUseCase {
 
     private final DeliveryPersonService deliveryPersonService;
 
-    public void assign(Long deliveryPersonId, Long orderId) {
-        deliveryPersonService.assignOrderToDeliveryPerson(deliveryPersonId, orderId);
+    public DeliveryPerson create(DeliveryPerson deliveryPerson) {
+        return deliveryPersonService.createDeliveryPerson(deliveryPerson);
     }
 }

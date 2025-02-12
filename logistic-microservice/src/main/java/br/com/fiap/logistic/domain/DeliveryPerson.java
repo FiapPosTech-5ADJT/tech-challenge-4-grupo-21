@@ -13,8 +13,7 @@ public class DeliveryPerson {
     private boolean available;
     private List<Order> orders;
 
-    public DeliveryPerson(Long id, String name, String vehiclePlate) {
-        this.id = id;
+    public DeliveryPerson(String name, String vehiclePlate) {
         this.name = name;
         this.vehiclePlate = vehiclePlate;
         this.available = true;

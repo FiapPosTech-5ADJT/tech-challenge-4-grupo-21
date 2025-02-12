@@ -8,5 +8,5 @@ public interface DeliveryPersonService {
 
     void assignOrderToDeliveryPerson(Long deliveryPersonId, Long orderId);
 
-    void completeDelivery(Long deliveryPersonId, Long orderId);
+    void completeDelivery(Long orderId);
 }
