@@ -1,8 +1,11 @@
 package br.com.fiap.logistic.adapter;
 
 import br.com.fiap.logistic.domain.Tracking;
+import br.com.fiap.logistic.dto.TrackingDTO;
 import br.com.fiap.logistic.entity.TrackingEntity;
 import lombok.AllArgsConstructor;
+
+import java.util.List;
 
 @AllArgsConstructor
 public class TrackingConverter {
@@ -34,5 +37,24 @@ public class TrackingConverter {
                 trackingEntity.getCreatedAt(),
                 trackingEntity.getEstimatedDeliveryTime()
         );
+    }
+
+    public TrackingDTO convertToDTO(Tracking tracking) {
+        return new TrackingDTO(
+                tracking.getId(),
+                tracking.getOrder().getId(),
+                tracking.getDeliveryPerson().getId(),
+                tracking.getLatitude(),
+                tracking.getLongitude(),
+                tracking.getTrackingTime(),
+                tracking.getCreatedAt(),
+                tracking.getEstimatedDeliveryTime()
+        );
+    }
+
+    public List<TrackingDTO> convertToDTOList(List<Tracking> trackingDTOList) {
+        return trackingDTOList.stream()
+                .map(this::convertToDTO)
+                .toList();
     }
 }

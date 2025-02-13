@@ -12,7 +12,7 @@ public class OrderConverter {
     public OrderEntity convertToEntity(Order order) {
         return OrderEntity.builder()
                 .id(order.getId())
-                .customerId(order.getCustomerId())
+                .customerId(order.getOrderExternalId())
                 .status(order.getStatus())
                 .createdAt(order.getCreatedAt())
                 .estimatedDelivery(order.getEstimatedDelivery())

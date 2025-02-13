@@ -1,6 +1,5 @@
 package br.com.fiap.logistic.usecase;
 
-import br.com.fiap.logistic.domain.DeliveryPerson;
 import br.com.fiap.logistic.service.DeliveryPersonService;
 import lombok.AllArgsConstructor;
 
