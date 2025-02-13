@@ -1,6 +1,7 @@
 package br.com.fiap.logistic.adapter;
 
 import br.com.fiap.logistic.domain.Order;
+import br.com.fiap.logistic.dto.OrderDTO;
 import br.com.fiap.logistic.entity.OrderEntity;
 
 public class OrderConverter {
@@ -19,5 +20,9 @@ public class OrderConverter {
                 .deliveredAt(order.getDeliveredAt())
                 .zipCode(order.getZipCode())
                 .build();
+    }
+
+public OrderDTO convertToDTO(Order order) {
+        return new OrderDTO(order.getOrderExternalId(),order.getEstimatedDelivery(),order.getDeliveredAt(),order.getZipCode(),order.getStatus().name());
     }
 }
