@@ -1,14 +1,20 @@
 package br.com.fiap.logistic.gateway;
 
 import br.com.fiap.logistic.domain.Tracking;
+import br.com.fiap.logistic.entity.TrackingEntity;
+
+import java.math.BigDecimal;
+import java.util.List;
+import java.util.Optional;
 
 public interface TrackingGateway {
 
-    Tracking createTracking(Tracking tracking);
+    TrackingEntity createTracking(TrackingEntity tracking);
 
-    void updateTrackingLatitudeAndLongitude(Long trackingId, Double latitude, Double longitude);
+    void updateTrackingLatitudeAndLongitude(TrackingEntity tracking);
 
-    Tracking getTrackingByOrderId(Long orderId);
+    Optional<TrackingEntity> getTrackingByOrderId(Long orderId);
 
-    Tracking getTrackingByLatitudeAndLongitude(Double latitude, Double longitude);
+    Optional<List<TrackingEntity>> getTrackingByLatitudeAndLongitude(BigDecimal latitude, BigDecimal longitude);
+
 }

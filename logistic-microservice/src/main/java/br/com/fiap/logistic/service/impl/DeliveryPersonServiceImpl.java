@@ -3,6 +3,7 @@ package br.com.fiap.logistic.service.impl;
 import br.com.fiap.logistic.adapter.DeliveryPersonConverter;
 import br.com.fiap.logistic.domain.DeliveryPerson;
 import br.com.fiap.logistic.domain.Order;
+import br.com.fiap.logistic.domain.OrderStatus;
 import br.com.fiap.logistic.entity.DeliveryPersonEntity;
 import br.com.fiap.logistic.gateway.DeliveryPersonGateway;
 import br.com.fiap.logistic.service.DeliveryPersonService;
@@ -29,6 +30,10 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
 
         DeliveryPerson deliveryPerson = deliveryPersonConverter.convertToDomain(deliveryPersonEntity);
 
+        if(!deliveryPerson.isAvailable()){
+            throw new RuntimeException("Entregador não disponível");
+        }
+
         final Order order = orderService.getOrderById(orderId);
 
         deliveryPerson.assignOrder(order);
@@ -37,13 +42,13 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     }
 
     @Override
-    public void completeDelivery(Long deliveryPersonId, Long orderId) {
-        DeliveryPersonEntity deliveryPersonEntity = deliveryPersonGateway.findById(deliveryPersonId)
+    public void completeDelivery(Long orderId) {
+        final Order order = orderService.getOrderById(orderId);
+        DeliveryPersonEntity deliveryPersonEntity = deliveryPersonGateway.findByOrderId(orderId)
                 .orElseThrow(() -> new RuntimeException("Entregador não encontrado"));
         DeliveryPerson deliveryPerson = deliveryPersonConverter.convertToDomain(deliveryPersonEntity);
-        final Order order = orderService.getOrderById(orderId);
         deliveryPerson.completeOrder(order);
-
+        orderService.updateOrderStatus(order.getId(), OrderStatus.COMPLETED);
         deliveryPersonGateway.save(deliveryPersonConverter.convertToEntity(deliveryPerson));
     }
 }

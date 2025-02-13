@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public class Order {
 
     private Long id;
-    private Long customerId;
+    private Long orderExternalId;
     private OrderStatus status;
     private LocalDateTime createdAt;
     private LocalDateTime estimatedDelivery;
@@ -13,11 +13,11 @@ public class Order {
     private Long zipCode;
 
     public Order(Long id,
-                 Long customerId,
+                 Long orderExternalId,
                  LocalDateTime estimatedDelivery,
                  LocalDateTime deliveredAt, Long zipCode) {
         this.id = id;
-        this.customerId = customerId;
+        this.orderExternalId = orderExternalId;
         this.zipCode = zipCode;
         this.status = OrderStatus.PENDING;
         this.createdAt = LocalDateTime.now();
@@ -25,18 +25,18 @@ public class Order {
         this.deliveredAt = deliveredAt;
     }
 
-    public Order(Long customerId,
+    public Order(Long orderExternalId,
                  LocalDateTime estimatedDelivery, Long zipCode) {
-        this.customerId = customerId;
+        this.orderExternalId = orderExternalId;
         this.zipCode = zipCode;
         this.status = OrderStatus.PENDING;
         this.estimatedDelivery = estimatedDelivery;
         this.createdAt = LocalDateTime.now();
     }
 
-    public Order(Long id, Long customerId, OrderStatus status, LocalDateTime createdAt, LocalDateTime estimatedDelivery, LocalDateTime deliveredAt, Long zipCode) {
+    public Order(Long id, Long orderExternalId, OrderStatus status, LocalDateTime createdAt, LocalDateTime estimatedDelivery, LocalDateTime deliveredAt, Long zipCode) {
         this.id = id;
-        this.customerId = customerId;
+        this.orderExternalId = orderExternalId;
         this.status = status;
         this.createdAt = createdAt;
         this.estimatedDelivery = estimatedDelivery;
@@ -84,8 +84,8 @@ public class Order {
         return id;
     }
 
-    public Long getCustomerId() {
-        return customerId;
+    public Long getOrderExternalId() {
+        return orderExternalId;
     }
 
     public OrderStatus getStatus() {
