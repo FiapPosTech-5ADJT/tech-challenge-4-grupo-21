@@ -1,3 +1,26 @@
+### Import batch file
+POST http://localhost:8080/batch/import
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary12345
+
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="file"; filename="products.csv"
+Content-Type: text/csv
+
+Smartphone X,Celular de última geração com câmera 108MP,2999.99,Eletrônicos,50
+Notebook Pro,Notebook com processador Intel i7 e 16GB RAM,5999.9,Eletrônicos,30
+Geladeira FrostFree,Geladeira duplex com tecnologia inverter,3899.99,Eletrodomésticos,20
+Fone de Ouvido Bluetooth,Fone sem fio com cancelamento de ruído,499.9,Acessórios,100
+Smartwatch Fit,Relógio inteligente com monitor de saúde,899.99,Acessórios,60
+Teclado Mecânico,Teclado RGB mecânico para gamers,349.9,Periféricos,80
+
+------WebKitFormBoundary12345
+Content-Disposition: form-data; name="milliseconds"
+
+1000
+------WebKitFormBoundary12345--
+
+
+
 ### Add product stock
 POST http://localhost:8080/product/addStock
 Content-Type: application/json
