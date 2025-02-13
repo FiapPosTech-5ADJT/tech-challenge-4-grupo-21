@@ -1,0 +1,111 @@
+
+
+
+<!DOCTYPE html>
+<html id="htmlId">
+<head>
+  <meta http-equiv="Content-Type" content="text/html;charset=UTF-8"> 
+  <title>Coverage Report > OrderController</title>
+  <style type="text/css">
+    @import "../../css/coverage.css";
+    @import "../../css/idea.min.css";
+  </style>
+  <script type="text/javascript" src="../../js/highlight.min.js"></script>
+  <script type="text/javascript" src="../../js/highlightjs-line-numbers.min.js"></script>
+</head>
+
+<body>
+<div class="content">
+<div class="breadCrumbs">
+Current scope:     <a href="../../index.html">all classes</a>
+    <span class="separator">|</span>
+    <a href="../index.html">com.fiap.order.management.controller</a>
+</div>
+
+<h1>Coverage Summary for Class: OrderController (com.fiap.order.management.controller)</h1>
+
+<table class="coverageStats">
+<tr>
+  <th class="name">Class</th>
+</tr>
+<tr>
+  <td class="name">OrderController</td>
+</tr>
+
+</table>
+
+<br/>
+<br/>
+
+
+<pre>
+<code class="sourceCode" id="sourceCode">&nbsp;package com.fiap.order.management.controller;
+&nbsp;
+&nbsp;import com.fiap.order.management.dto.OrderDTO;
+&nbsp;import com.fiap.order.management.entity.Order;
+&nbsp;import io.swagger.v3.oas.annotations.Operation;
+&nbsp;import io.swagger.v3.oas.annotations.Parameter;
+&nbsp;import io.swagger.v3.oas.annotations.media.Content;
+&nbsp;import io.swagger.v3.oas.annotations.media.Schema;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponse;
+&nbsp;import io.swagger.v3.oas.annotations.responses.ApiResponses;
+&nbsp;import io.swagger.v3.oas.annotations.tags.Tag;
+&nbsp;import org.springframework.http.ResponseEntity;
+&nbsp;
+&nbsp;@Tag(
+&nbsp;        name = &quot;Pedidos [OrderController]&quot;,
+&nbsp;        description = &quot;Controlador que fornece os serviços de criação e consulta de pedidos.&quot;
+&nbsp;)
+&nbsp;public interface OrderController {
+&nbsp;    @Operation(summary = &quot;Criar um pedido.&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(
+&nbsp;                    responseCode = &quot;201&quot;,
+&nbsp;                    description = &quot;Pedido criado com sucesso.&quot;,
+&nbsp;                    content = {
+&nbsp;                            @Content(mediaType = &quot;application/json&quot;, schema = @Schema(implementation = Order.class))
+&nbsp;                    })
+&nbsp;    })
+&nbsp;    ResponseEntity&lt;OrderDTO&gt; create(
+&nbsp;      @Parameter(description = &quot;Descrição do pedido a ser criado.&quot;)OrderDTO orderDTO
+&nbsp;      );
+&nbsp;
+&nbsp;    @Operation(summary = &quot;Buscar um pedido pelo ID.&quot;)
+&nbsp;    @ApiResponses(value = {
+&nbsp;            @ApiResponse(
+&nbsp;                    responseCode = &quot;200&quot;,
+&nbsp;                    description = &quot;Pedido encontrado com sucesso.&quot;,
+&nbsp;                    content = {
+&nbsp;                            @Content(mediaType = &quot;application/json&quot;, schema = @Schema(implementation = Order.class))
+&nbsp;                    })
+&nbsp;    })
+&nbsp;    ResponseEntity&lt;OrderDTO&gt; findById(@Parameter(description = &quot;Id do pedido a ser consultado.&quot;) Long orderId);
+&nbsp;
+&nbsp;}
+</code>
+</pre>
+</div>
+
+<script type="text/javascript">
+(function() {
+    var msie = false, msie9 = false;
+    /*@cc_on
+      msie = true;
+      @if (@_jscript_version >= 9)
+        msie9 = true;
+      @end
+    @*/
+
+    if (!msie || msie && msie9) {
+      hljs.highlightAll()
+      hljs.initLineNumbersOnLoad();
+    }
+})();
+</script>
+
+<div class="footer">
+    
+    <div style="float:right;">generated on 2025-02-12 23:17</div>
+</div>
+</body>
+</html>

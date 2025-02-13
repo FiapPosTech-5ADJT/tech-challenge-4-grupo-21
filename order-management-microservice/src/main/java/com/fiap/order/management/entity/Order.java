@@ -5,13 +5,16 @@ package com.fiap.order.management.entity;
     import lombok.AllArgsConstructor;
     import lombok.Getter;
     import lombok.NoArgsConstructor;
+    import lombok.Setter;
 
+    import java.util.ArrayList;
     import java.util.List;
 
     @Entity(name = "orders") // "order" is a reserved keyword in MySQL
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter
+    @Setter
     public class Order {
         @Id
         @GeneratedValue(strategy = GenerationType.AUTO)
@@ -23,5 +26,5 @@ package com.fiap.order.management.entity;
         private StatusOrder status;
 
         @OneToMany(cascade = CascadeType.ALL)
-        private List<Item> items;
+        private List<Item> items = new ArrayList<>();
     }
