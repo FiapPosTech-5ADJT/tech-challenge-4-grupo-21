@@ -9,6 +9,7 @@ import br.com.fiap.logistic.service.OrderService;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
+import java.util.Optional;
 
 @AllArgsConstructor
 public class OrderServiceImpl implements OrderService {
@@ -23,10 +24,8 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
-    public Order getOrderById(Long id) {
-        return orderGateway.getOrderById(id)
-                .map(orderConverter::convertToDomain)
-                .orElseThrow(() -> new RuntimeException("Order não encontrada com id "+id));
+    public Optional<Order> getOrderById(Long id) {
+        return orderGateway.getOrderById(id);
     }
 
     @Override
