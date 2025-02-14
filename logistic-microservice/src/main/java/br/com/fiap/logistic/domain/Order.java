@@ -26,7 +26,8 @@ public class Order {
     }
 
     public Order(Long orderExternalId,
-                 LocalDateTime estimatedDelivery, Long zipCode) {
+                 LocalDateTime estimatedDelivery,
+                 Long zipCode) {
         this.orderExternalId = orderExternalId;
         this.zipCode = zipCode;
         this.status = OrderStatus.PENDING;
