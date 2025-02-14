@@ -36,6 +36,12 @@ public class CustomerController {
         return findCustomerUseCase.findAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Customer> findById(Long id) {
+        Customer customer = findCustomerUseCase.findById(id);
+        return ResponseEntity.ok(customer);
+    }
+
     @PostMapping
     public ResponseEntity<Customer> save(@RequestBody CustomerDto customerDto) {
         return createCustomerUseCase.save(customerDto);
