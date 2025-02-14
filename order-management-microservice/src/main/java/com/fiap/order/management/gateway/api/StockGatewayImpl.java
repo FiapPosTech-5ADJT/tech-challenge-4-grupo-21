@@ -5,7 +5,7 @@ import org.springframework.cloud.stream.function.StreamBridge;
 
 public class StockGatewayImpl implements StockGateway {
 
-  private static final String ATUALIZAR_ESTOQUE = "atualizar-estoque-queue";
+  private static final String ATUALIZAR_ESTOQUE = "atualizarEstoque-out-0";
 
   private final StreamBridge streamBridge;
 
@@ -14,7 +14,7 @@ public class StockGatewayImpl implements StockGateway {
   }
 
   @Override
-    public void updateStock(String json) {
-      streamBridge.send(ATUALIZAR_ESTOQUE, json);
+  public void updateStock(String json) {
+    streamBridge.send(ATUALIZAR_ESTOQUE, json);
   }
 }

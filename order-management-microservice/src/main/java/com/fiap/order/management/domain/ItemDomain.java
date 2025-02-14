@@ -1,13 +1,13 @@
 package com.fiap.order.management.domain;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 
 public class ItemDomain {
   private Long id;
-  private String productId;
-  private BigInteger quantity;
+  private Long productId;
+  private BigDecimal quantity;
 
-  public ItemDomain(Long id, String productId, BigInteger quantity) {
+  public ItemDomain(Long id, Long productId, BigDecimal quantity) {
     this.id = id;
     this.productId = productId;
     this.quantity = quantity;
@@ -18,21 +18,21 @@ public class ItemDomain {
     return id;
   }
 
-  public String getProductId() {
+  public Long getProductId() {
     return productId;
   }
 
-  public BigInteger getQuantity() {
+  public BigDecimal getQuantity() {
     return quantity;
   }
 
-  public void setQuantity(BigInteger quantity) {
+  public void setQuantity(BigDecimal quantity) {
     this.quantity = quantity;
     validateQuantity();
   }
 
   private void validateQuantity() {
-    if (this.quantity == null || this.quantity.compareTo(BigInteger.ZERO) <= 0) {
+    if (this.quantity == null || this.quantity.compareTo(BigDecimal.ZERO) <= 0) {
       throw new UnsupportedOperationException("A quantidade deve ser maior que zero.");
     }
   }

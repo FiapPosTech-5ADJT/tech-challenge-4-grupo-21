@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fiap.order.management.adapter.mapper.OrderMapper;
 import com.fiap.order.management.controller.exception.EnviarMensagemException;
 import com.fiap.order.management.controller.exception.NotFoundException;
+import com.fiap.order.management.controller.exception.StockUpdateException;
 import com.fiap.order.management.domain.ItemDomain;
 import com.fiap.order.management.domain.OrderDomain;
 import com.fiap.order.management.dto.*;
@@ -12,9 +13,11 @@ import com.fiap.order.management.gateway.*;
 import com.fiap.order.management.entity.Order;
 import com.fiap.order.management.service.OrderService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.math.BigDecimal;
 import java.util.List;
 import java.util.Objects;
 
@@ -52,31 +55,28 @@ public class OrderServiceImpl implements OrderService {
         }
     }
 
-    private void validateEnoughStock(List<ItemDomain> products) {
-        products.forEach(product -> {
-            ProductFindByIdResponseDTO productFound = productGateway.findById(product.getProductId());
+  private void validateEnoughStock(List<ItemDomain> products) {
+    products.forEach(product -> {
+      ResponseEntity<BigDecimal> responseEntity = productGateway.findById(product.getProductId());
+      BigDecimal productQuantity = responseEntity.getBody();
 
-            boolean hasEnoughProducts = productFound.quantity().compareTo(product.getQuantity()) >= 0;
-
-            if (!hasEnoughProducts) {
-                throw new UnsupportedOperationException("Sem disponibilidade do produto '" +
-                        productFound.name() + "' em estoque");
-            }
-        });
-    }
+      if (productQuantity == null || productQuantity.compareTo(product.getQuantity()) < 0) {
+        throw new UnsupportedOperationException("Sem disponibilidade do produto em estoque");
+      }
+    });
+  }
 
     private void manageInStockProducts(List<ItemDomain> products) {
         products.forEach(product -> {
             StockProductUpdateRequestDTO stockProductUpdateRequestDTO = new StockProductUpdateRequestDTO(
                     product.getProductId(),
-                    product.getQuantity(),
-                    StockActionEnum.REMOVE
+                    product.getQuantity()
             );
           try {
             String json = objectMapper.writeValueAsString(stockProductUpdateRequestDTO);
             this.stockGateway.updateStock(json);
           } catch (JsonProcessingException e) {
-            throw new RuntimeException(e);
+            throw new StockUpdateException("Error processing JSON for stock update", e);
           } catch (Exception e) {
             throw new EnviarMensagemException();
           }

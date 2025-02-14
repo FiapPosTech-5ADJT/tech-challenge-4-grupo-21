@@ -3,10 +3,10 @@ package com.fiap.order.management.dto;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-import java.math.BigInteger;
+import java.math.BigDecimal;
 @AllArgsConstructor
 @Getter
 public class ItemDTO {
-  private String productId;
-  private BigInteger quantity;
+  private Long productId;
+  private BigDecimal quantity;
 }
