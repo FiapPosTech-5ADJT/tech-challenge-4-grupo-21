@@ -13,8 +13,8 @@ This project is a Spring Boot application for managing orders. It includes funct
 #### Installation
 1. Clone the repository:
    ```bash
-   git clone https://gitlab.com/escola-fiap/persistindo-dados-e-containers/tech-challenge/tech-challenge-4/tech-challenge-4-order-management.git
-   cd tech-challenge-4-order-management
+   git clone git@github.com:FiapPosTech-5ADJT/tech-challenge-4-grupo-21.git
+   cd customer-microservice
    ```
 
 2. Build the application:
