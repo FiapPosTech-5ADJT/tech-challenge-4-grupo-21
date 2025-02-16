@@ -12,6 +12,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.Message;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 
 import java.math.BigDecimal;
@@ -21,6 +22,7 @@ import java.util.function.Consumer;
 @RestController
 @RequestMapping("/product")
 @AllArgsConstructor
+@Component
 public class ProductController {
 
     private final AddProductStockUseCase addProductStockUseCase;
@@ -52,8 +54,6 @@ public class ProductController {
     public ResponseEntity<List<Product>> getProducts() {
         return ResponseEntity.ok(getProductsUseCase.getProducts());
     }
-
-
 
   @Bean
   public Consumer<Message<RemoveProductStockRequest>> atualizarEstoque() {

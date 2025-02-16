@@ -14,12 +14,12 @@ public class CustomerGatewayImpl implements CustomerGateway {
 
   @Override
     public CustomerDTO findById(Long customerId) {
-         return customerClient.findById(customerId);
-         /* return new CustomerDTO(
+         //return customerClient.findById(customerId);
+         return new CustomerDTO(
             customerId,
             "Mock Customer",
             "SP",
             "123 Mock Street"
-          );*/
+          );
     }
 }

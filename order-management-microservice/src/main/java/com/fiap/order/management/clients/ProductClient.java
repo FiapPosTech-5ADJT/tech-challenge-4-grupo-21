@@ -10,7 +10,7 @@ import java.math.BigDecimal;
 @FeignClient(name = "products-client", url = "${stock-products.url}")
 public interface ProductClient {
   
-    @GetMapping(value = "/{productId}/stock")
+    @GetMapping(value = "/product/{productId}/stock")
     ResponseEntity<BigDecimal>  findById(@PathVariable(value = "productId") Long productId);
 
 }
