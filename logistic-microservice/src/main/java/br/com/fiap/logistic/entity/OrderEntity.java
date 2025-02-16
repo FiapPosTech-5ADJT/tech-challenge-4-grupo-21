@@ -22,7 +22,7 @@ public class OrderEntity {
     private Long id;
 
     @Column(nullable = false)
-    private Long customerId;
+    private Long externalId;
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
@@ -37,5 +37,9 @@ public class OrderEntity {
     private LocalDateTime deliveredAt;
 
     @Column(nullable = false)
-    private Long zipCode;
+    private String zipCode;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "delivery_person_id", nullable = false)
+    private DeliveryPersonEntity deliveryPerson;
 }

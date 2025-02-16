@@ -5,6 +5,6 @@ import java.time.LocalDateTime;
 public record OrderDTO(Long orderExternalId,
                        LocalDateTime estimatedDelivery,
                        LocalDateTime deliveredAt,
-                       Long zipCode,
+                       String zipCode,
                        String status) {
 }

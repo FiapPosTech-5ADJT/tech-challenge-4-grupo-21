@@ -2,6 +2,8 @@ package br.com.fiap.logistic.adapter;
 
 import br.com.fiap.logistic.domain.Tracking;
 import br.com.fiap.logistic.dto.TrackingDTO;
+import br.com.fiap.logistic.entity.DeliveryPersonEntity;
+import br.com.fiap.logistic.entity.OrderEntity;
 import br.com.fiap.logistic.entity.TrackingEntity;
 import lombok.AllArgsConstructor;
 
@@ -10,14 +12,15 @@ import java.util.List;
 @AllArgsConstructor
 public class TrackingConverter {
 
-    private final OrderConverter orderConverter;
-    private final DeliveryPersonConverter deliveryPersonConverter;
-
     public TrackingEntity toEntity(Tracking tracking) {
         return TrackingEntity.builder()
                 .id(tracking.getId())
-                .order(orderConverter.convertToEntity(tracking.getOrder()))
-                .deliveryPerson(deliveryPersonConverter.convertToEntity(tracking.getDeliveryPerson()))
+                .order(tracking.getOrderId() != null
+                        ? OrderEntity.builder().id(tracking.getOrderId()).build()
+                        : null)
+                .deliveryPerson(tracking.getDeliveryPersonId() != null
+                        ? DeliveryPersonEntity.builder().id(tracking.getDeliveryPersonId()).build()
+                        : null)
                 .latitude(tracking.getLatitude())
                 .longitude(tracking.getLongitude())
                 .trackingTime(tracking.getTrackingTime())
@@ -29,8 +32,8 @@ public class TrackingConverter {
     public Tracking toDomain(TrackingEntity trackingEntity) {
         return new Tracking(
                 trackingEntity.getId(),
-                orderConverter.convertToDomain(trackingEntity.getOrder()),
-                deliveryPersonConverter.convertToDomain(trackingEntity.getDeliveryPerson()),
+                trackingEntity.getOrder() != null ? trackingEntity.getOrder().getId() : null,
+                trackingEntity.getDeliveryPerson() != null ? trackingEntity.getDeliveryPerson().getId() : null,
                 trackingEntity.getLatitude(),
                 trackingEntity.getLongitude(),
                 trackingEntity.getTrackingTime(),
@@ -42,8 +45,8 @@ public class TrackingConverter {
     public TrackingDTO convertToDTO(Tracking tracking) {
         return new TrackingDTO(
                 tracking.getId(),
-                tracking.getOrder().getId(),
-                tracking.getDeliveryPerson().getId(),
+                tracking.getOrderId(),
+                tracking.getDeliveryPersonId(),
                 tracking.getLatitude(),
                 tracking.getLongitude(),
                 tracking.getTrackingTime(),
@@ -52,8 +55,8 @@ public class TrackingConverter {
         );
     }
 
-    public List<TrackingDTO> convertToDTOList(List<Tracking> trackingDTOList) {
-        return trackingDTOList.stream()
+    public List<TrackingDTO> convertToDTOList(List<Tracking> trackingList) {
+        return trackingList.stream()
                 .map(this::convertToDTO)
                 .toList();
     }

@@ -1,6 +1,5 @@
 package br.com.fiap.logistic.gateway;
 
-import br.com.fiap.logistic.domain.Tracking;
 import br.com.fiap.logistic.entity.TrackingEntity;
 
 import java.math.BigDecimal;

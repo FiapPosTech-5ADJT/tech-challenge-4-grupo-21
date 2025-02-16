@@ -5,19 +5,15 @@ import br.com.fiap.logistic.dto.DeliveryPersonDTO;
 import br.com.fiap.logistic.entity.DeliveryPersonEntity;
 import lombok.AllArgsConstructor;
 
-import java.util.stream.Collectors;
-
 @AllArgsConstructor
 public class DeliveryPersonConverter {
-
-    final OrderConverter orderConverter;
 
     public DeliveryPersonEntity convertToEntity(DeliveryPerson deliveryPerson) {
         return DeliveryPersonEntity.builder()
                 .id(deliveryPerson.getId())
                 .name(deliveryPerson.getName())
+                .vehiclePlate(deliveryPerson.getVehiclePlate())
                 .available(deliveryPerson.isAvailable())
-                .orders(deliveryPerson.getOrders().stream().map(orderConverter::convertToEntity).collect(Collectors.toList()))
                 .build();
     }
 
@@ -25,8 +21,7 @@ public class DeliveryPersonConverter {
         return new DeliveryPerson(deliveryPersonEntity.getId(),
                 deliveryPersonEntity.getName(),
                 deliveryPersonEntity.getVehiclePlate(),
-                deliveryPersonEntity.isAvailable(),
-                deliveryPersonEntity.getOrders().stream().map(orderConverter::convertToDomain).collect(Collectors.toList()));
+                deliveryPersonEntity.isAvailable());
     }
 
     public DeliveryPerson convertToDomain(DeliveryPersonDTO deliveryPersonDTO) {

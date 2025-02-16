@@ -8,6 +8,7 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="order-management" />
+        <module name="logistic-microservice" />
       </profile>
       <profile name="Annotation profile for logistic-microservice" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
@@ -17,13 +18,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/unknown/lombok-unknown.jar" />
         </processorPath>
         <module name="customer-microservice" />
-        <module name="logistic-microservice" />
       </profile>
-      <profile name="Annotation profile for product-microservice" enabled="true">
+      <profile name="Annotation profile for productms-api" enabled="true">
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <processorPath useClasspath="false">
+          <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
           <entry name="$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.24/lombok-1.18.24.jar" />
         </processorPath>
         <module name="product" />

@@ -29,10 +29,10 @@ public class TrackingEntity {
     @JoinColumn(name = "delivery_person_id", nullable = false)
     private DeliveryPersonEntity deliveryPerson;
 
-    @Column(nullable = false, precision = 10, scale = 6)
+    @Column(precision = 10, scale = 6)
     private BigDecimal latitude;
 
-    @Column(nullable = false, precision = 10, scale = 6)
+    @Column(precision = 10, scale = 6)
     private BigDecimal longitude;
 
     private LocalDateTime trackingTime;

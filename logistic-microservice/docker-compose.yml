@@ -1,0 +1,41 @@
+services:
+  app:
+    container_name: logisticms
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/logisticmsdb
+      SPRING_DATASOURCE_USERNAME: myuser
+      SPRING_DATASOURCE_PASSWORD: secret
+    networks:
+      - logistic-network
+  postgres:
+    container_name: logisticmsdb
+    image: postgres:latest
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: secret
+      POSTGRES_DB: logisticmsdb
+    networks:
+      - logistic-network
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U myuser" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+
+networks:
+  logistic-network:
+
+volumes:
+  postgres-data:

@@ -25,12 +25,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Optional<Order> getOrderById(Long id) {
-        return orderGateway.getOrderById(id);
+        return orderGateway.getOrderByExternalId(id)
+                .map(orderConverter::convertToDomain);
     }
 
     @Override
     public void updateOrderStatus(Long id, OrderStatus status) {
-        final Order order = getOrderById(id);
+        final Order order = getOrderById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         order.setStatus(status);
         orderGateway.save(orderConverter.convertToEntity(order));
     }
@@ -38,5 +39,10 @@ public class OrderServiceImpl implements OrderService {
     @Override
     public List<Order> getOrdersByZipCode(String zipCode) {
         return orderGateway.getOrdersByZipCode(zipCode).stream().map(orderConverter::convertToDomain).toList();
+    }
+
+    @Override
+    public List<Order> getOrdersByDeliveryPerson(Long deliveryPersonId) {
+        return orderGateway.getOrdersByDeliveryPerson(deliveryPersonId).stream().map(orderConverter::convertToDomain).toList();
     }
 }

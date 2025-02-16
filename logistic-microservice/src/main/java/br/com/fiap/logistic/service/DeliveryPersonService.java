@@ -6,7 +6,7 @@ public interface DeliveryPersonService {
 
     DeliveryPerson createDeliveryPerson(DeliveryPerson deliveryPerson);
 
-    void assignOrderToDeliveryPerson(Long deliveryPersonId, Long orderId);
+    void assignOrderToDeliveryPerson(Long deliveryPersonId, Long orderId, String zipCode);
 
     void completeDelivery(Long orderId);
 }

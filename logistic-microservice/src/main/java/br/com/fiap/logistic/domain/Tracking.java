@@ -6,25 +6,26 @@ import java.time.LocalDateTime;
 public class Tracking {
 
     private Long id;
-    private Order order;
-    private DeliveryPerson deliveryPerson;
+    private Long orderId;
+    private Long deliveryPersonId;
     private BigDecimal latitude;
     private BigDecimal longitude;
     private LocalDateTime trackingTime;
     private LocalDateTime createdAt;
     private LocalDateTime estimatedDeliveryTime;
 
+    @SuppressWarnings("java:S107")
     public Tracking(Long id,
-                    Order order,
-                    DeliveryPerson deliveryPerson,
+                    Long orderId,
+                    Long deliveryPersonId,
                     BigDecimal latitude,
                     BigDecimal longitude,
                     LocalDateTime trackingTime,
                     LocalDateTime createdAt,
                     LocalDateTime estimatedDeliveryTime) {
         this.id = id;
-        this.order = order;
-        this.deliveryPerson = deliveryPerson;
+        this.orderId = orderId;
+        this.deliveryPersonId = deliveryPersonId;
         this.latitude = latitude;
         this.longitude = longitude;
         this.trackingTime = trackingTime;
@@ -32,11 +33,9 @@ public class Tracking {
         this.estimatedDeliveryTime = estimatedDeliveryTime;
     }
 
-    public Tracking(Order order, DeliveryPerson deliveryPerson, BigDecimal latitude, BigDecimal longitude, LocalDateTime estimatedDeliveryTime) {
-        this.order = order;
-        this.deliveryPerson = deliveryPerson;
-        this.latitude = latitude;
-        this.longitude = longitude;
+    public Tracking(Long orderId, Long deliveryPersonId, LocalDateTime estimatedDeliveryTime) {
+        this.orderId = orderId;
+        this.deliveryPersonId = deliveryPersonId;
         this.estimatedDeliveryTime = estimatedDeliveryTime;
         this.createdAt = LocalDateTime.now();
     }
@@ -45,12 +44,12 @@ public class Tracking {
         return id;
     }
 
-    public Order getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
 
-    public DeliveryPerson getDeliveryPerson() {
-        return deliveryPerson;
+    public Long getDeliveryPersonId() {
+        return deliveryPersonId;
     }
 
     public BigDecimal getLatitude() {
@@ -80,8 +79,8 @@ public class Tracking {
     }
 
     public void setEstimatedDeliveryTime(LocalDateTime estimatedDeliveryTime) {
-        if (this.estimatedDeliveryTime == null) {
-            throw new IllegalStateException("A data de entrega estimada não pode ser nulla");
+        if (estimatedDeliveryTime == null) {
+            throw new IllegalStateException("A data de entrega estimada não pode ser nula");
         }
 
         if (estimatedDeliveryTime.isBefore(LocalDateTime.now())) {
