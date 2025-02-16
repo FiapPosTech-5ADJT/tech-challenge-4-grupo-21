@@ -8,7 +8,7 @@ public class AssignDeliveryPersonUseCase {
 
     private final DeliveryPersonService deliveryPersonService;
 
-    public void assign(Long deliveryPersonId, Long orderId) {
-        deliveryPersonService.assignOrderToDeliveryPerson(deliveryPersonId, orderId);
+    public void assign(Long deliveryPersonId, Long orderId, String zipCode) {
+        deliveryPersonService.assignOrderToDeliveryPerson(deliveryPersonId, orderId,zipCode);
     }
 }

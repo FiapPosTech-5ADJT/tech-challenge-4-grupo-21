@@ -1,6 +1,7 @@
 package br.com.fiap.logistic.domain;
 
 import java.time.LocalDateTime;
+import java.util.regex.Pattern;
 
 public class Order {
 
@@ -10,48 +11,69 @@ public class Order {
     private LocalDateTime createdAt;
     private LocalDateTime estimatedDelivery;
     private LocalDateTime deliveredAt;
-    private Long zipCode;
+    private String zipCode;
+    private Long deliveryPersonId;
 
     public Order(Long id,
                  Long orderExternalId,
                  LocalDateTime estimatedDelivery,
-                 LocalDateTime deliveredAt, Long zipCode) {
+                 LocalDateTime deliveredAt,
+                 String zipCode,
+                 Long deliveryPersonId) {
         this.id = id;
         this.orderExternalId = orderExternalId;
-        this.zipCode = zipCode;
+        this.setZipCode(zipCode);
         this.status = OrderStatus.PENDING;
         this.createdAt = LocalDateTime.now();
         this.estimatedDelivery = estimatedDelivery;
         this.deliveredAt = deliveredAt;
+        this.deliveryPersonId = deliveryPersonId;
     }
 
     public Order(Long orderExternalId,
                  LocalDateTime estimatedDelivery,
-                 Long zipCode) {
+                 String zipCode,
+                 Long deliveryPersonId) {
         this.orderExternalId = orderExternalId;
-        this.zipCode = zipCode;
+        this.setZipCode(zipCode);
         this.status = OrderStatus.PENDING;
         this.estimatedDelivery = estimatedDelivery;
         this.createdAt = LocalDateTime.now();
+        this.deliveryPersonId = deliveryPersonId;
     }
 
-    public Order(Long id, Long orderExternalId, OrderStatus status, LocalDateTime createdAt, LocalDateTime estimatedDelivery, LocalDateTime deliveredAt, Long zipCode) {
+    @SuppressWarnings("java:S107")
+    public Order(Long id, Long orderExternalId,
+                 OrderStatus status,
+                 LocalDateTime createdAt,
+                 LocalDateTime estimatedDelivery,
+                 LocalDateTime deliveredAt,
+                 String zipCode,
+                 Long deliveryPersonId) {
         this.id = id;
         this.orderExternalId = orderExternalId;
         this.status = status;
         this.createdAt = createdAt;
         this.estimatedDelivery = estimatedDelivery;
         this.deliveredAt = deliveredAt;
-        this.zipCode = zipCode;
+        this.setZipCode(zipCode);
+        this.deliveryPersonId = deliveryPersonId;
     }
 
     public void setStatus(OrderStatus status) {
-        if (validateStatusOrder(status)) {
-            this.status = status;
-        }
+        this.validateStatusOrder(status);
+        this.status = status;
     }
 
-    private boolean validateStatusOrder(OrderStatus newStatus) {
+    public void setDeliveryPersonId(Long deliveryPersonId) {
+        this.deliveryPersonId = deliveryPersonId;
+    }
+
+    public Long getDeliveryPersonId() {
+        return deliveryPersonId;
+    }
+
+    private void validateStatusOrder(OrderStatus newStatus) {
         if (isOrderCompleted()) {
             throw new IllegalArgumentException("Order already completed");
         } else if (isOrderCanceled()) {
@@ -61,7 +83,13 @@ public class Order {
         } else if (isOrderInTransit() && newStatus == OrderStatus.PENDING) {
             throw new IllegalArgumentException("Order can't be pending after being in transit");
         }
-        return true;
+    }
+
+    private void setZipCode(String zipCode) {
+        if (!Pattern.matches("\\d{5}-?\\d{3}", zipCode)) {
+            throw new IllegalArgumentException("Invalid zip code");
+        }
+        this.zipCode = zipCode;
     }
 
     private boolean isOrderCompleted() {
@@ -105,7 +133,7 @@ public class Order {
         return deliveredAt;
     }
 
-    public Long getZipCode() {
+    public String getZipCode() {
         return zipCode;
     }
 }

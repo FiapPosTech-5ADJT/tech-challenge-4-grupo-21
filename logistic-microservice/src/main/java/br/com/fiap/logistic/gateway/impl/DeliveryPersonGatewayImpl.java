@@ -22,8 +22,4 @@ public class DeliveryPersonGatewayImpl implements DeliveryPersonGateway {
         return deliveryPersonRepository.findById(deliveryPersonId);
     }
 
-    @Override
-    public Optional<DeliveryPersonEntity> findByOrderId(Long orderId) {
-        return deliveryPersonRepository.findByOrderId(orderId);
-    }
 }

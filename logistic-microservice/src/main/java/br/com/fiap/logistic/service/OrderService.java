@@ -15,4 +15,6 @@ public interface OrderService {
     void updateOrderStatus(Long id, OrderStatus status);
 
     List<Order> getOrdersByZipCode(String zipCode);
+
+    List<Order> getOrdersByDeliveryPerson(Long deliveryPersonId);
 }

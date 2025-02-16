@@ -9,10 +9,10 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>br.com.fiap</groupId>
-    <artifactId>product</artifactId>
+    <artifactId>productms-api</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>product-microservice</name>
-    <description>product-microservice</description>
+    <name>productms-api</name>
+    <description>productms-api</description>
     <url/>
     <licenses>
         <license/>

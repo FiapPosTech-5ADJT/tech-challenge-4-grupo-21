@@ -9,12 +9,15 @@ import br.com.fiap.logistic.usecase.GetOrdersByZipCodeUseCase;
 import br.com.fiap.logistic.usecase.UpdateOrderStatusUseCase;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
 import java.util.List;
 import java.util.regex.Pattern;
 
 @AllArgsConstructor
 @RestController
+@RequestMapping("/orders")
 public class OrderControllerImpl implements OrderController {
 
     private final GetOrdersByZipCodeUseCase getOrdersByZipCodeUseCase;
@@ -22,7 +25,8 @@ public class OrderControllerImpl implements OrderController {
     private final OrderConverter orderConverter;
 
     @Override
-    public ResponseEntity<List<OrderDTO>> getOrdersByZipCode(String zipCode) {
+    @GetMapping
+    public ResponseEntity<List<OrderDTO>> getOrdersByZipCode(@RequestParam String zipCode) {
         if (zipCode == null || !Pattern.matches("\\d{5}-?\\d{3}", zipCode)) {
             return ResponseEntity.badRequest().build();
         }
@@ -31,7 +35,11 @@ public class OrderControllerImpl implements OrderController {
     }
 
     @Override
-    public ResponseEntity<Void> updateOrderStatus(Long orderId, String status) {
+    @PutMapping("/{orderId}/status")
+    public ResponseEntity<Void> updateOrderStatus(@PathVariable Long orderId, @RequestParam String status) {
+        if (Arrays.stream(OrderStatus.values()).map(Enum::name).noneMatch(status::equals)) {
+            return ResponseEntity.badRequest().build();
+        }
         updateOrderStatusUseCase.updateOrderStatus(orderId, OrderStatus.valueOf(status));
         return ResponseEntity.ok().build();
     }

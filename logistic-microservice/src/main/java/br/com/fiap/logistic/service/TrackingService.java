@@ -1,8 +1,10 @@
 package br.com.fiap.logistic.service;
 
+import br.com.fiap.logistic.domain.Order;
 import br.com.fiap.logistic.domain.Tracking;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TrackingService {
@@ -14,4 +16,6 @@ public interface TrackingService {
     Tracking getTrackingByOrderId(Long orderId);
 
     List<Tracking> getTrackingByLatitudeAndLongitude(BigDecimal latitude, BigDecimal longitude);
+
+    LocalDateTime calculateEstimatedDelivery(Order orderId);
 }

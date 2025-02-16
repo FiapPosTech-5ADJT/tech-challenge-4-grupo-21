@@ -12,4 +12,8 @@ public interface OrderGateway {
     Optional<OrderEntity> getOrderById(Long id);
 
     List<OrderEntity> getOrdersByZipCode(String zipCode);
+
+    Optional<OrderEntity> getOrderByExternalId(Long externalId);
+
+    List<OrderEntity> getOrdersByDeliveryPerson(Long deliveryPersonId);
 }

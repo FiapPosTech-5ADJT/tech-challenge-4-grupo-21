@@ -27,4 +27,14 @@ public class OrderGatewayImpl implements OrderGateway {
     public List<OrderEntity> getOrdersByZipCode(String zipCode) {
         return orderRepository.getReferenceByZipCode(zipCode);
     }
+
+    @Override
+    public Optional<OrderEntity> getOrderByExternalId(Long externalId) {
+        return orderRepository.findByExternalId(externalId);
+    }
+
+    @Override
+    public List<OrderEntity> getOrdersByDeliveryPerson(Long deliveryPersonId) {
+        return orderRepository.findByDeliveryPersonId(deliveryPersonId);
+    }
 }
