@@ -3,8 +3,8 @@ package br.com.fiap.logistic.controller.impl;
 import br.com.fiap.logistic.adapter.DeliveryPersonConverter;
 import br.com.fiap.logistic.controller.DeliveryPersonController;
 import br.com.fiap.logistic.domain.DeliveryPerson;
-import br.com.fiap.logistic.dto.AssignDeliveryDto;
-import br.com.fiap.logistic.dto.DeliveryPersonDTO;
+import br.com.fiap.logistic.domain.Tracking;
+import br.com.fiap.logistic.dto.*;
 import br.com.fiap.logistic.usecase.AssignDeliveryPersonUseCase;
 import br.com.fiap.logistic.usecase.CompleteDeliveryUseCase;
 import br.com.fiap.logistic.usecase.CreateDeliveryPersonUseCase;
@@ -27,20 +27,21 @@ public class DeliveryPersonControllerImpl implements DeliveryPersonController {
     private final DeliveryPersonConverter deliveryPersonConverter;
 
     @Override
-    public ResponseEntity<DeliveryPersonDTO> create(@RequestBody DeliveryPersonDTO deliveryPersonDTO) {
+    public ResponseEntity<DeliveryPersonResponseDTO> create(@RequestBody DeliveryPersonDTO deliveryPersonDTO) {
         DeliveryPerson deliveryPerson = deliveryPersonConverter.convertToDomain(deliveryPersonDTO);
-        DeliveryPersonDTO createdDeliveryPersonDTO = deliveryPersonConverter.convertToDTO(createDeliveryPersonUseCase.create(deliveryPerson));
-        return ResponseEntity.ok(createdDeliveryPersonDTO);
+        DeliveryPersonResponseDTO createdDeliveryPersonResponseDTO = deliveryPersonConverter.convertToResponseDTO(createDeliveryPersonUseCase.create(deliveryPerson));
+        return ResponseEntity.ok(createdDeliveryPersonResponseDTO);
     }
 
     @Override
-    public ResponseEntity<Void> assignDeliveryPerson(@RequestBody AssignDeliveryDto assignDeliveryDto) {
-        assignDeliveryPersonUseCase.assign(
+    public ResponseEntity<AssignDeliveryResponseDTO> assignDeliveryPerson(@RequestBody AssignDeliveryDto assignDeliveryDto) {
+        Tracking tracking = assignDeliveryPersonUseCase.assign(
                 assignDeliveryDto.deliveryPersonId(),
                 assignDeliveryDto.orderId(),
                 assignDeliveryDto.zipCode()
         );
-        return ResponseEntity.noContent().build();
+        AssignDeliveryResponseDTO assignDeliveryResponseDTO = new AssignDeliveryResponseDTO(tracking.getId());
+        return ResponseEntity.ok(assignDeliveryResponseDTO);
     }
 
     @Override

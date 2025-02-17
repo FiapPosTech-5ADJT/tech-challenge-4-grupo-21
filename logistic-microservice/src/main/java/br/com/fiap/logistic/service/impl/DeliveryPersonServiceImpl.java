@@ -33,7 +33,7 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
     }
 
     @Override
-    public void assignOrderToDeliveryPerson(Long deliveryPersonId,
+    public Tracking assignOrderToDeliveryPerson(Long deliveryPersonId,
                                             Long orderId,
                                             String zipCode) {
         DeliveryPersonEntity deliveryPersonEntity = deliveryPersonGateway.findById(deliveryPersonId)
@@ -52,19 +52,21 @@ public class DeliveryPersonServiceImpl implements DeliveryPersonService {
         final Order order = orderService.getOrderById(orderId)
                 .orElseGet(() -> createServiceOrder(orderId, zipCode, deliveryPerson));
 
-        createTracking(deliveryPerson, order);
+        Tracking tracking = createTracking(deliveryPerson, order);
 
         deliveryPersonGateway.save(deliveryPersonConverter.convertToEntity(deliveryPerson));
+
+        return tracking;
     }
 
-    private void createTracking(DeliveryPerson deliveryPerson, Order order) {
+    private Tracking createTracking(DeliveryPerson deliveryPerson, Order order) {
         LocalDateTime estimatedDeliveryTime = trackingService.calculateEstimatedDelivery(order);
         Tracking tracking = new Tracking(
                 order.getId(),
                 deliveryPerson.getId(),
                 estimatedDeliveryTime
         );
-        trackingService.createTracking(tracking);
+        return trackingService.createTracking(tracking);
     }
 
     private Order createServiceOrder(Long orderId, String zipCode, DeliveryPerson deliveryPerson) {

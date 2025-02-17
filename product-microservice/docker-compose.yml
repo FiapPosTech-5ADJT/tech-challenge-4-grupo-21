@@ -10,9 +10,11 @@ services:
       postgres:
         condition: service_healthy
     environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5544/productdb
-      SPRING_DATASOURCE_USERNAME: myuser
-      SPRING_DATASOURCE_PASSWORD: secret
+      DB_URL: jdbc:postgresql://postgres:5432/productdb
+      DB_USERNAME: myuser
+      DB_PASSWORD: secret
+      DB_PASSWORD_H2: admin
+      RABBIT_PASSWORD: guest
     networks:
       - productms-network
 

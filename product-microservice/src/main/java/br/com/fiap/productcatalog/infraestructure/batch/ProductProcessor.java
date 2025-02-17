@@ -7,9 +7,11 @@ import br.com.fiap.productcatalog.infraestructure.persistence.converter.db.Categ
 import br.com.fiap.productcatalog.infraestructure.persistence.jpa.entity.CategoryJPAEntity;
 import br.com.fiap.productcatalog.infraestructure.persistence.jpa.entity.ProductJPAEntity;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.batch.item.ItemProcessor;
 
 @AllArgsConstructor
+@Slf4j
 public class ProductProcessor implements ItemProcessor<ProductCSVDTO, ProductJPAEntity> {
 
     private CategoryService categoryService;
@@ -32,7 +34,7 @@ public class ProductProcessor implements ItemProcessor<ProductCSVDTO, ProductJPA
             productJPAEntity.setStock(productCSVDTO.getQuantity());
             return productJPAEntity;
         }catch (Exception e){
-            System.out.println("Erro ao processar o produto: " + productCSVDTO.getName()+ " - "+ e.getMessage());
+            log.error("Erro ao processar o produto: " + productCSVDTO.getName()+ " - "+ e.getMessage());
         }
         return null;
     }
