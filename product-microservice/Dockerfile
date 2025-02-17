@@ -1,5 +1,5 @@
 # Stage 1: Compiling
-FROM maven:3.8.3-openjdk-17 as base
+FROM maven:3.8.3-openjdk-17 AS base
 WORKDIR /app
 COPY . /app
 RUN mvn clean package -DskipTests

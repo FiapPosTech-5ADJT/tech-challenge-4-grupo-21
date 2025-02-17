@@ -13,6 +13,8 @@ services:
       DB_URL: jdbc:postgresql://postgres:5432/productdb
       DB_USERNAME: myuser
       DB_PASSWORD: secret
+      DB_PASSWORD_H2: admin
+      RABBIT_PASSWORD: guest
     networks:
       - productms-network
 

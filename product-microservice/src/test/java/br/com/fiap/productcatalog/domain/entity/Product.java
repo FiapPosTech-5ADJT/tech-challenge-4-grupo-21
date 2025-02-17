@@ -131,8 +131,9 @@ class ProductTest {
     void addStockWithNegativeQuantityThrowsException() {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
+        BigDecimal quantity = BigDecimal.valueOf(-10);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-                product.addStock(BigDecimal.valueOf(-10))
+                product.addStock(quantity)
         );
         assertEquals("Quantity cannot be negative", exception.getMessage());
     }
@@ -151,8 +152,9 @@ class ProductTest {
     void removeStockWithNegativeQuantityThrowsException() {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
+        BigDecimal quantity = BigDecimal.valueOf(-10);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-                product.removeStock(BigDecimal.valueOf(-10))
+                product.removeStock(quantity)
         );
         assertEquals("Quantity cannot be negative", exception.getMessage());
     }
@@ -161,8 +163,9 @@ class ProductTest {
     void removeStockWithQuantityGreaterThanStockThrowsException() {
         Product product = createProduct(1L, "Product 1", "Description 1", 10.0,
                 "Category 1", 10.0);
+        BigDecimal quantity = BigDecimal.valueOf(20);
         IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () ->
-                product.removeStock(BigDecimal.valueOf(20))
+                product.removeStock(quantity)
         );
         assertEquals("Quantity cannot be greater than stock", exception.getMessage());
     }

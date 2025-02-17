@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 @ExtendWith(MockitoExtension.class) // Habilita o Mockito para injetar os mocks
-public class CategoryServiceTest {
+class CategoryServiceTest {
 
     @Mock
     private CategoryGateway categoryGateway;

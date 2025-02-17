@@ -69,38 +69,10 @@ A estrutura do projeto segue a convenção padrão do Spring Boot com a arquitet
     - **Descrição**: Este endpoint é invocado quando uma mensagem para remover estoque é recebida via RabbitMQ.
     - **Ação**: Executa a remoção de estoque para o produto conforme os dados da mensagem.
 
-## Configuração do Docker
-
-### `docker-compose.yml`
-O Docker Compose é utilizado para orquestrar a aplicação e o banco de dados PostgreSQL. Abaixo, a configuração de cada serviço:
-
-- **Serviço `app`**: Contêiner do microserviço de produto.
-    - Porta exposta: `8080`
-    - Variáveis de ambiente:
-        - `SPRING_DATASOURCE_URL`: URL do banco de dados PostgreSQL.
-        - `SPRING_DATASOURCE_USERNAME`: Nome de usuário do banco de dados.
-        - `SPRING_DATASOURCE_PASSWORD`: Senha do banco de dados.
-
-- **Serviço `postgres`**: Contêiner do banco de dados PostgreSQL.
-    - Porta exposta: `5544`
-    - Variáveis de ambiente:
-        - `POSTGRES_USER`: Nome de usuário do banco de dados.
-        - `POSTGRES_PASSWORD`: Senha do banco de dados.
-        - `POSTGRES_DB`: Nome do banco de dados.
-
-### Dockerfile
-Este arquivo define o processo de construção do microserviço:
-
-- **Fase 1**: Compilação do código usando Maven.
-- **Fase 2**: Execução do JAR utilizando Amazon Corretto com Alpine Linux para otimizar o tamanho da imagem Docker.
-
 ## Como Executar
 
 ### Passo 1: Clone o repositório
 Clone o repositório para sua máquina local:
-```sh
-cd productms-api
-```
 
 ### Passo 2: Compile o projeto
 Compile o projeto utilizando Maven, incluindo todas as dependências:
