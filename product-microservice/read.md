@@ -10,6 +10,7 @@ Este microserviço é responsável pela gestão de produtos, permitindo a adiç�
 - **PostgreSQL**: Banco de dados utilizado para persistência dos dados.
 - **Docker**: Contêinerização do microserviço e do banco de dados.
 - **Maven**: Gerenciador de dependências e build do projeto.
+- **Spring Batch**: Framework para processamento de dados em lote, permitindo a leitura, transformação e escrita de grandes volumes de dados de forma eficiente e escalável.
 
 ## Estrutura do Projeto
 A estrutura do projeto segue a convenção padrão do Spring Boot com a arquitetura Clean Arch, com a adição de arquivos específicos para a contêinerização com Docker.
