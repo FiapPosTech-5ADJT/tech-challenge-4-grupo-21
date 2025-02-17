@@ -8,6 +8,7 @@ import br.com.fiap.logistic.gateway.OrderGateway;
 import br.com.fiap.logistic.service.OrderService;
 import lombok.AllArgsConstructor;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -33,6 +34,7 @@ public class OrderServiceImpl implements OrderService {
     public void updateOrderStatus(Long id, OrderStatus status) {
         final Order order = getOrderById(id).orElseThrow(() -> new RuntimeException("Order not found"));
         order.setStatus(status);
+        order.setDeliveredAt(LocalDateTime.now());
         orderGateway.save(orderConverter.convertToEntity(order));
     }
 

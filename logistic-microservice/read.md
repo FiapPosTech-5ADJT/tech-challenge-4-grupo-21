@@ -64,7 +64,14 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-A aplicação estará acessível em: `http://localhost:8080`
+A aplicação estará acessível em: `http://localhost:8084`
+
+### 5. Outra forma de executar a aplicação seria por meio do Docker
+
+```sh
+
+docker-compose up --build
+```
 
 ## Endpoints
 
@@ -86,7 +93,29 @@ A aplicação estará acessível em: `http://localhost:8080`
 - **PUT /trackings/{trackingId}/location?latitude=XX.XXXX&longitude=XX.XXXX**: Atualiza a localização do rastreamento.
 - **GET /trackings?latitude=XX.XXXX&longitude=XX.XXXX**: Retorna rastreamentos pela localização.
 
-## Executando os Testes
+
+## Documentação da API
+
+A documentação interativa da API (Swagger) pode ser acessada após iniciar a aplicação:
+
+```
+http://localhost:8084/swagger-ui/index.html
+```
+
+### Sugestão de como testar a aplicação
+
+1. Criar um entregador
+2. Atribuir um entregador a um pedido. O número do pedido pode ser obtido ao criar um pedido por meio do MS de pedidos.
+3. Atualizar o status do pedido para `IN_TRANSIT`
+4. Atualizar a latitude e longitude do rastreamento
+5. Concluir a entrega do pedido
+
+Este é o processo normal dos pedidos
+Caso queira testar a busca de pedidos por CEP, basta criar um pedido com um CEP específico e buscar por ele.
+
+
+
+## Executando os Testes unitários/integrados
 
 A aplicação possui testes automatizados utilizando RestAssured e JUnit. Para executá-los, utilize:
 
@@ -98,10 +127,3 @@ A cobertura de testes e suas porcentagens podem ser visualizadas na imagem abaix
 
 ![img_1.png](img_1.png)
 
-## Documentação da API
-
-A documentação interativa da API (Swagger) pode ser acessada após iniciar a aplicação:
-
-```
-http://localhost:8080/swagger-ui/index.html
-```

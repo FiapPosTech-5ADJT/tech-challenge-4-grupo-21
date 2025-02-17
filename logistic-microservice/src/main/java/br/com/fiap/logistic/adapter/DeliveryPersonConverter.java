@@ -2,6 +2,7 @@ package br.com.fiap.logistic.adapter;
 
 import br.com.fiap.logistic.domain.DeliveryPerson;
 import br.com.fiap.logistic.dto.DeliveryPersonDTO;
+import br.com.fiap.logistic.dto.DeliveryPersonResponseDTO;
 import br.com.fiap.logistic.entity.DeliveryPersonEntity;
 import lombok.AllArgsConstructor;
 
@@ -30,5 +31,11 @@ public class DeliveryPersonConverter {
 
     public DeliveryPersonDTO convertToDTO(DeliveryPerson deliveryPerson) {
         return new DeliveryPersonDTO(deliveryPerson.getName(), deliveryPerson.getVehiclePlate());
+    }
+
+    public DeliveryPersonResponseDTO convertToResponseDTO(DeliveryPerson deliveryPersonEntity) {
+        return new DeliveryPersonResponseDTO(deliveryPersonEntity.getId(),
+                deliveryPersonEntity.getName(),
+                deliveryPersonEntity.getVehiclePlate());
     }
 }

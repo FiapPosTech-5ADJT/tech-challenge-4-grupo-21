@@ -69,6 +69,10 @@ public class Order {
         this.deliveryPersonId = deliveryPersonId;
     }
 
+    public void setDeliveredAt(LocalDateTime deliveredAt) {
+        this.deliveredAt = deliveredAt;
+    }
+
     public Long getDeliveryPersonId() {
         return deliveryPersonId;
     }

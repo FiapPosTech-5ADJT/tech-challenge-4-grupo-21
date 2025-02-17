@@ -44,6 +44,6 @@ public interface OrderController {
     @PutMapping("/{orderId}/status")
     ResponseEntity<Void> updateOrderStatus(
             @Parameter(description = "ID do pedido.") @PathVariable Long orderId,
-            @Parameter(description = "Novo status do pedido.") @RequestParam String status
+            @Parameter(description = "Novo status do pedido. As opções são: PENDING, IN_TRANSIT, COMPLETED, CANCELED.") @RequestParam String status
     );
 }

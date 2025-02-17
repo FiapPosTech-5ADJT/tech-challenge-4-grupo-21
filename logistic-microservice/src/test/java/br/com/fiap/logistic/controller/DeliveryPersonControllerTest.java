@@ -43,7 +43,7 @@ class DeliveryPersonControllerTest {
     }
 
     @Test
-    void shouldReturn204WhenAssigningDeliveryPerson() {
+    void shouldReturn200WhenAssigningDeliveryPerson() {
         Map<String, Object> jsonBody = new HashMap<>();
         jsonBody.put("deliveryPersonId", 528);
         jsonBody.put("orderId", 123);
@@ -55,7 +55,7 @@ class DeliveryPersonControllerTest {
                 .when()
                 .put("/delivery-person/assign")
                 .then()
-                .statusCode(204);
+                .statusCode(200);
     }
 
     @Test
