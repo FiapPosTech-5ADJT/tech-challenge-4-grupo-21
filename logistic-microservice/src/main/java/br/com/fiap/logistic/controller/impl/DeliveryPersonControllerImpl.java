@@ -10,11 +10,15 @@ import br.com.fiap.logistic.usecase.CompleteDeliveryUseCase;
 import br.com.fiap.logistic.usecase.CreateDeliveryPersonUseCase;
 
 import lombok.AllArgsConstructor;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
+import org.springframework.messaging.Message;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.function.Consumer;
 
 @AllArgsConstructor
 @RestController
@@ -50,4 +54,16 @@ public class DeliveryPersonControllerImpl implements DeliveryPersonController {
         return ResponseEntity.noContent().build();
     }
 
+  @Bean
+  public Consumer<Message<LogisticOrderDTO>> orderToDelivery() {
+    return message -> {
+      LogisticOrderDTO request = message.getPayload();
+      assignDeliveryPersonUseCase.assign(
+        1L,
+         request.getOrderId(),
+        "64058120"
+
+      );
+    };
+  }
 }
