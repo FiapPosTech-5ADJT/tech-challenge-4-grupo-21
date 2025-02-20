@@ -32,43 +32,36 @@ The application configuration is managed through the `application.properties` fi
 
 - **Database Configuration:**
   ```ini
-  spring.datasource.url=jdbc:mysql://localhost:4000/orders_db
+  spring.datasource.url=jdbc:mysql://localhost:4001/customers_db
   spring.datasource.username=root
   spring.datasource.password=123456
-  spring.jpa.hibernate.ddl-auto=update
+  spring.jpa.hibernate.ddl-auto=create
+  spring.jpa.show-sql=true
+  spring.jpa.properties.hibernate.format_sql=true
   ```
-
-- **RabbitMQ Configuration:**
-  ```ini
-  spring.rabbitmq.host=localhost
-  spring.rabbitmq.port=5672
-  spring.rabbitmq.username=guest
-  spring.rabbitmq.password=guest
-  ```
-
-- **External Services:**
-  ```ini
-  customer-management.url=http://localhost:8080
-  stock-products.url=http://localhost:8081
-  ```
-
+  
 ### Usage
 To run the application locally:
 ```bash
 mvn spring-boot:run
 ```
 
-The application will be available at `http://localhost:8082`.
+The application will be available at `http://localhost:8086`.
 
 ### API Endpoints
-- **Create Order:**
+- **Create Customer:**
   ```http
-  POST /orders
+  POST /customers
   ```
 
-- **Get Order by ID:**
+- **Get Customer by ID:**
   ```http
-  GET /orders/{id}
+  GET /customers/{id}
+  ```
+
+- **Get ALL Customers:**
+  ```http
+  GET /customers
   ```
 
 ### Docker
