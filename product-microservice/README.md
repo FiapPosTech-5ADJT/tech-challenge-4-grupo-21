@@ -87,10 +87,10 @@ Certifique-se de que você tenha o Docker e o Docker Compose instalados. Em segu
 docker-compose up --build
 ```
 
-Isso criará os contêineres para o microserviço e o PostgreSQL. A aplicação estará disponível na porta `8080`.
+Isso criará os contêineres para o microserviço e o PostgreSQL. A aplicação estará disponível na porta `8081`.
 
 ### Passo 4: Acesse a API
-Com os contêineres em execução, você pode acessar a API através da URL `http://localhost:8080`. Utilize as ferramentas de sua escolha (por exemplo, Postman ou cURL) para fazer requisições aos endpoints definidos.
+Com os contêineres em execução, você pode acessar a API através da URL `http://localhost:8081`. Utilize as ferramentas de sua escolha (por exemplo, Postman ou cURL) para fazer requisições aos endpoints definidos.
 
 ## Executando os Testes
 
@@ -109,7 +109,7 @@ A cobertura de testes e suas porcentagens podem ser visualizadas na imagem abaix
 A documentação interativa da API (Swagger) pode ser acessada após iniciar a aplicação:
 
 ```
-http://localhost:8080/swagger-ui/index.html
+http://localhost:8081/swagger-ui/index.html
 ```
 
 ## Licença
